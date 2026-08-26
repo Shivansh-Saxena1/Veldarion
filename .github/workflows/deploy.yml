@@ -8,7 +8,7 @@
 # SSL is provisioned automatically by GitHub (Let's Encrypt) once the
 # domain's DNS points at GitHub Pages.
 #
-# First-time repo setup (one-time, in the GitHub UI):
+# First-time repo setup (one-time in the GitHub UI):
 #   Settings -> Pages -> Build and deployment -> Source: "GitHub Actions"
 #   Settings -> Pages -> Custom domain: veldarion.com
 #   Settings -> Pages -> Enforce HTTPS  (enable after cert is issued)
@@ -34,7 +34,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NEXT_OUTPUT_MODE: export
+      NEXT_PUBLIC_BASE_PATH: /Veldarion
       NEXT_TELEMETRY_DISABLED: 1
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -68,6 +70,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
