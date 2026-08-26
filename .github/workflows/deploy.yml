@@ -1,0 +1,74 @@
+# Deploys the Veldarion site to GitHub Pages as a fully static site.
+#
+# Flow:
+#   push to main  ->  build (static export to ./out)  ->  deploy to Pages
+#
+# The custom domain (veldarion.com) is bound via public/CNAME, which is
+# copied into the exported site, plus Settings > Pages > Custom domain.
+# SSL is provisioned automatically by GitHub (Let's Encrypt) once the
+# domain's DNS points at GitHub Pages.
+#
+# First-time repo setup (one-time, in the GitHub UI):
+#   Settings -> Pages -> Build and deployment -> Source: "GitHub Actions"
+#   Settings -> Pages -> Custom domain: veldarion.com
+#   Settings -> Pages -> Enforce HTTPS  (enable after cert is issued)
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_OUTPUT_MODE: export
+      NEXT_TELEMETRY_DISABLED: 1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build:pages
+
+      - name: Verify export output
+        run: |
+          test -f out/index.html || { echo "::error::out/index.html missing — export failed"; exit 1; }
+          test -f out/CNAME || { echo "::error::out/CNAME missing — custom domain will not bind"; exit 1; }
+          echo "Exported files: $(find out -type f | wc -l)"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

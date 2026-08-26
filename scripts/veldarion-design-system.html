@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Veldarion Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: 720px 1020px; margin: 0; }
+  :root {
+    --parchment: #F4EFE4;
+    --parchment-dim: #E8E0CF;
+    --parchment-deep: #DDD3BD;
+    --ink: #14110C;
+    --ink-soft: #2A2620;
+    --ink-dim: #5C5447;
+    --ink-muted: #8A8170;
+    --chartreuse: #C5F23D;
+    --chartreuse-deep: #A8D11C;
+    --amber: #E8A317;
+    --amber-deep: #B8800E;
+    --oxblood: #7A2E2E;
+    --oxblood-soft: #9C3D3D;
+  }
+  * { font-optical-sizing: auto; }
+  html, body {
+    margin: 0; padding: 0; width: 720px;
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 14px; line-height: 1.5;
+  }
+  @media screen {
+    html { height: auto; display: flex; justify-content: center; background: #2a2620; }
+    body { margin: 20px auto; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+  }
+  code { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: rgba(20,17,12,0.06); padding: 1px 5px; border-radius: 2px; color: var(--ink); }
+
+  /* COVER */
+  .cover {
+    width: 720px; height: 1020px; box-sizing: border-box;
+    background: var(--ink); color: var(--parchment);
+    padding: 60px; display: flex; flex-direction: column; justify-content: space-between;
+    break-after: page; overflow: hidden; position: relative;
+  }
+  .cover::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 55% 50% at 75% 30%, rgba(197,242,61,0.10), transparent 70%),
+      radial-gradient(ellipse 50% 40% at 25% 75%, rgba(232,163,23,0.08), transparent 75%);
+    pointer-events: none;
+  }
+  .cover > * { position: relative; z-index: 1; }
+  .cover .logo-row { display: flex; align-items: center; gap: 14px; }
+  .cover .logo-row svg { width: 60px; height: 66px; }
+  .cover .word { font-family: 'Fraunces', serif; font-size: 38px; font-weight: 700; letter-spacing: -0.02em; }
+  .cover .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--chartreuse); }
+  .cover .title { font-family: 'Fraunces', serif; font-size: 78px; font-weight: 700; line-height: 1.04; letter-spacing: -0.03em; margin: 14px 0 0 0; }
+  .cover .title em { font-style: italic; font-weight: 500; }
+  .cover .subtitle { font-family: 'Fraunces', serif; font-style: italic; font-size: 20px; color: var(--parchment-deep); margin-top: 22px; line-height: 1.4; max-width: 480px; }
+  .cover .meta { display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--parchment-deep); border-top: 1px solid rgba(244,239,228,0.2); padding-top: 14px; }
+
+  /* CONTENT */
+  .main-content { padding: 50px 55px 40px 55px; }
+  .section-header { break-after: avoid; break-inside: avoid; margin-top: 26px; padding-bottom: 12px; border-bottom: 1px solid rgba(20,17,12,0.15); }
+  .section-header:first-child { margin-top: 0; }
+  .section-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--ink-muted); }
+  .section-title { font-family: 'Fraunces', serif; font-size: 38px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; margin: 8px 0 0 0; }
+  .section-title em { font-style: italic; font-weight: 500; }
+  .section-body { margin-top: 18px; font-size: 14px; line-height: 1.6; color: var(--ink-soft); break-inside: avoid; }
+  .section-body p { margin: 0 0 12px 0; }
+  .section-body p:last-child { margin-bottom: 0; }
+  .section-body strong { color: var(--ink); font-weight: 600; }
+
+  /* COLOR SWATCHES */
+  .swatch-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 18px; }
+  .swatch { break-inside: avoid; border: 1px solid rgba(20,17,12,0.15); overflow: hidden; }
+  .swatch .color-block { height: 84px; position: relative; }
+  .swatch .color-block .corner-tag { position: absolute; bottom: 8px; right: 10px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.15em; }
+  .swatch .info { padding: 10px 12px; background: var(--parchment); }
+  .swatch .name { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: var(--ink); }
+  .swatch .hex { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-dim); margin-top: 2px; }
+  .swatch .role { font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--ink-muted); margin-top: 4px; }
+
+  /* TYPE SAMPLES */
+  .type-row { break-inside: avoid; padding: 14px 0; border-bottom: 1px dashed rgba(20,17,12,0.15); }
+  .type-row .label { font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-muted); margin-bottom: 6px; }
+  .type-row .sample-display { font-family: 'Fraunces', serif; color: var(--ink); }
+  .type-row .sample-sans { font-family: 'Inter Tight', sans-serif; color: var(--ink); }
+  .type-row .sample-mono { font-family: 'JetBrains Mono', monospace; color: var(--ink); }
+
+  /* LOGO ANATOMY */
+  .logo-anatomy { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; break-inside: avoid; }
+  .logo-stage { padding: 30px; display: flex; align-items: center; justify-content: center; min-height: 180px; position: relative; }
+  .logo-stage.ink { background: var(--ink); }
+  .logo-stage.light { background: var(--parchment); border: 1px solid rgba(20,17,12,0.15); }
+  .logo-stage .stage-label { position: absolute; bottom: 8px; left: 10px; font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.5); }
+  .logo-stage.light .stage-label { color: var(--ink-muted); }
+  .logo-stage svg { width: 100px; height: 110px; }
+
+  /* COMPONENTS */
+  .component-row { break-inside: avoid; margin-bottom: 12px; padding: 16px; border: 1px solid rgba(20,17,12,0.15); background: white; }
+  .component-row .label { font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--ink-muted); margin-bottom: 12px; }
+  .component-row .demo { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .demo-cta-primary { background: var(--chartreuse); color: var(--ink); padding: 10px 20px; border-radius: 999px; font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 13px; box-shadow: 0 4px 0 0 var(--ink); display: inline-flex; align-items: center; gap: 6px; }
+  .demo-cta-ink { background: var(--ink); color: var(--parchment); padding: 10px 20px; border-radius: 999px; font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 13px; box-shadow: 0 4px 0 0 var(--chartreuse-deep); display: inline-flex; align-items: center; gap: 6px; }
+  .demo-cta-ghost { border: 1px solid rgba(20,17,12,0.2); background: transparent; color: var(--ink); padding: 10px 20px; border-radius: 999px; font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; }
+  .demo-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--ink-muted); }
+  .demo-highlight { font-family: 'Fraunces', serif; font-style: italic; font-size: 22px; position: relative; display: inline-block; }
+  .demo-highlight .text { position: relative; z-index: 1; }
+  .demo-highlight .swipe { position: absolute; left: -6px; right: -6px; bottom: 0.1em; height: 0.7em; background: var(--chartreuse); transform: skewX(-7deg); z-index: 0; }
+  .demo-stamp { display: inline-block; transform: rotate(-6deg); border: 2px solid var(--oxblood); padding: 6px 14px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--oxblood); }
+  .demo-stamp-amber { display: inline-block; transform: rotate(6deg); border: 2px solid var(--oxblood); background: rgba(232,163,23,0.1); padding: 4px 10px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--oxblood); }
+
+  /* MOTION GRAPH */
+  .motion-spec { break-inside: avoid; padding: 16px; background: var(--ink); color: var(--parchment); margin-top: 18px; }
+  .motion-spec .label { font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--chartreuse); }
+  .motion-spec .name { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 700; margin-top: 6px; }
+  .motion-spec .code { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--parchment-deep); margin-top: 8px; line-height: 1.6; }
+
+  /* LISTS */
+  ul.clean { list-style: none; padding: 0; margin: 12px 0 0 0; }
+  ul.clean li { padding-left: 20px; position: relative; margin-bottom: 8px; font-size: 13px; line-height: 1.55; color: var(--ink-soft); }
+  ul.clean li::before { content: ''; position: absolute; left: 0; top: 8px; width: 7px; height: 7px; background: var(--chartreuse-deep); transform: rotate(45deg); }
+  ul.clean li strong { color: var(--ink); }
+
+  /* TERRAIN DEMO (Dimension section) */
+  .terrain-demo { break-inside: avoid; margin-top: 18px; border: 1px solid rgba(20,17,12,0.15); background: var(--parchment); position: relative; }
+  .terrain-demo svg { display: block; width: 100%; height: auto; }
+  .terrain-demo .corner-hud { position: absolute; top: 10px; right: 12px; font-family: 'JetBrains Mono', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--ink-muted); }
+
+  /* ENDING */
+  .ending {
+    width: 720px; height: 1020px; box-sizing: border-box;
+    background: var(--chartreuse); color: var(--ink);
+    padding: 60px; display: flex; flex-direction: column; justify-content: space-between;
+    break-before: page; overflow: hidden; position: relative;
+  }
+  .ending::before { content: ''; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: var(--amber); opacity: 0.35; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+  .ending > * { position: relative; z-index: 1; }
+  .ending .closing-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--ink); }
+  .ending .closing-title { font-family: 'Fraunces', serif; font-size: 76px; font-weight: 700; line-height: 0.98; letter-spacing: -0.025em; }
+  .ending .closing-title em { font-style: italic; font-weight: 500; }
+  .ending .closing-foot { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<div class="cover">
+  <div class="logo-row">
+    <svg viewBox="0 0 40 44" fill="none" aria-hidden="true">
+      <rect x="0" y="0" width="40" height="44" rx="6" fill="#F4EFE4" />
+      <path d="M7 14 L20 34 L33 14 L28 14 L20 26 L12 14 Z" fill="#14110C" />
+      <path d="M20 4 L27 14 L13 14 Z" fill="#C5F23D" />
+    </svg>
+    <span class="word">Veldarion</span>
+  </div>
+
+  <div>
+    <div class="eyebrow">§ 00 — Brand Document</div>
+    <h1 class="title">Design<br><span style="font-style: italic; font-weight: 500;">System.</span></h1>
+    <p class="subtitle">The visual language of Veldarion — autonomous AI agents that overturn denied medical claims for specialty clinics.</p>
+  </div>
+
+  <div class="meta">
+    <span>v1.1 · Filed 2024</span>
+    <span>Appeal No. 0001</span>
+  </div>
+</div>
+
+<!-- ============ MAIN CONTENT ============ -->
+<div class="main-content">
+
+  <!-- 01. BRAND -->
+  <div class="section-header">
+    <div class="section-num">§ 01 — Brand</div>
+    <h2 class="section-title">The <span style="font-style: italic; font-weight: 500;">Appeal Brief</span> aesthetic.</h2>
+  </div>
+  <div class="section-body">
+    <p>Veldarion is an autonomous AI agent service that overturns denied medical claims for specialty clinics. Users do not log into software — they send us denied EOBs, our agents read the clinical charts and payer policies, draft appeal letters, and file them on the clinic's behalf. We are paid a 10% contingency on recovered revenue. Zero upfront. Zero SaaS tax.</p>
+    <p>The brand speaks the language of a <strong>legal brief × medical chart × financial filing</strong> — confident, technical, anti-SaaS. The visual system supports this voice: parchment backgrounds recall filed paper; india ink for authoritative text; chartreuse as the recovered-revenue signal; amber for value and the core; oxblood for the problem we overturn. No gradients. No glassmorphism. No purple. No "AI-powered platform" copy.</p>
+    <p>What makes Veldarion visually unique against other AI SaaS sites: (1) the parchment-and-ink palette reads as legal authority, not as a tech demo; (2) the chartreuse CTA with offset shadow looks like a stamped seal, not a flat colored rectangle; (3) the variable Fraunces serif with optical sizing gives large headlines dramatic editorial character that no other AI SaaS site uses; (4) JetBrains Mono eyebrow labels and metadata bars reinforce the filed-document metaphor.</p>
+  </div>
+
+  <!-- 02. LOGO -->
+  <div class="section-header">
+    <div class="section-num">§ 02 — Logo</div>
+    <h2 class="section-title">The V mark + the <span style="font-style: italic; font-weight: 500;">signal</span>.</h2>
+  </div>
+  <div class="section-body">
+    <p>The Veldarion mark is a filled geometric V with an upward arrow rising from the V's opening. It reads simultaneously as the brand initial and as the act of lifting denied claims upward — recovered revenue, won appeals, the signal going up. The mark is constructed from two SVG paths inside a rounded-corner container.</p>
+  </div>
+  <div class="logo-anatomy">
+    <div class="logo-stage ink">
+      <svg viewBox="0 0 40 44" fill="none">
+        <rect x="0" y="0" width="40" height="44" rx="6" fill="#14110C" />
+        <path d="M7 14 L20 34 L33 14 L28 14 L20 26 L12 14 Z" fill="#C5F23D" />
+        <path d="M20 4 L27 14 L13 14 Z" fill="#C5F23D" />
+      </svg>
+      <span class="stage-label">Primary · ink-bg</span>
+    </div>
+    <div class="logo-stage light">
+      <svg viewBox="0 0 40 44" fill="none">
+        <rect x="0" y="0" width="40" height="44" rx="6" fill="#F4EFE4" stroke="#14110C" stroke-width="1.4" />
+        <path d="M7 14 L20 34 L33 14 L28 14 L20 26 L12 14 Z" fill="#14110C" />
+        <path d="M20 4 L27 14 L13 14 Z" fill="#14110C" />
+      </svg>
+      <span class="stage-label">Inverse · parchment-bg</span>
+    </div>
+  </div>
+  <div class="section-body" style="margin-top: 16px;">
+    <p><strong>Construction.</strong> A rounded-corner container (40 × 44 units, rx 6) holds two filled paths. The V slab uses 6 vertices: outer-top-left (7,14), vertex (20,34), outer-top-right (33,14), inner-top-right (28,14), inner-vertex (20,26), inner-top-left (12,14). The arrow is a triangle: tip (20,4), base-left (13,14), base-right (27,14). The arrow's base aligns with the V's top opening.</p>
+    <p><strong>Aspect ratio.</strong> The mark has a 40:44 aspect ratio (height exceeds width by 10%). Never distort it to a square.</p>
+    <p><strong>Clear space.</strong> Maintain at least ½ the mark's width as padding on all sides. The wordmark "Veldarion" uses Fraunces Bold at a size matching the mark's height; letter-spacing tight (-0.02em).</p>
+    <p><strong>Don'ts.</strong> Don't recolor the chartreuse to any other accent. Don't stretch the aspect ratio. Don't rotate the mark. Don't place the light (parchment-bg) mark on a parchment background — minimum 4.5:1 contrast required.</p>
+  </div>
+
+  <!-- 03. COLOR -->
+  <div class="section-header">
+    <div class="section-num">§ 03 — Color</div>
+    <h2 class="section-title">Parchment, ink, and the <span style="font-style: italic; font-weight: 500;">signal</span>.</h2>
+  </div>
+  <div class="section-body">
+    <p>Six colors total. Three form the legal-brief substrate (parchment, parchment-dim, ink); chartreuse carries brand meaning as the recovered-revenue signal; amber marks value and the core; oxblood names the problem we overturn. No gradients between brand colors — only solid fills and the radial ambient glow used in the dark Moat section.</p>
+  </div>
+  <div class="swatch-grid">
+    <div class="swatch">
+      <div class="color-block" style="background: #F4EFE4;"></div>
+      <div class="info">
+        <div class="name">Parchment</div>
+        <div class="hex">#F4EFE4 · rgb(244,239,228)</div>
+        <div class="role">Background — primary surface</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="color-block" style="background: #E8E0CF;"></div>
+      <div class="info">
+        <div class="name">Parchment Dim</div>
+        <div class="hex">#E8E0CF · rgb(232,224,207)</div>
+        <div class="role">Background — hover & cards</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="color-block" style="background: #14110C;">
+        <span class="corner-tag" style="color: rgba(244,239,228,0.6);">FG</span>
+      </div>
+      <div class="info">
+        <div class="name">India Ink</div>
+        <div class="hex">#14110C · rgb(20,17,12)</div>
+        <div class="role">Foreground — text, panels</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="color-block" style="background: #C5F23D;"></div>
+      <div class="info">
+        <div class="name">Electric Chartreuse</div>
+        <div class="hex">#C5F23D · rgb(197,242,61)</div>
+        <div class="role">Accent — signal, CTAs</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="color-block" style="background: #E8A317;"></div>
+      <div class="info">
+        <div class="name">Amber Gold</div>
+        <div class="hex">#E8A317 · rgb(232,163,23)</div>
+        <div class="role">Accent — value, the core</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="color-block" style="background: #7A2E2E;"></div>
+      <div class="info">
+        <div class="name">Oxblood</div>
+        <div class="hex">#7A2E2E · rgb(122,46,46)</div>
+        <div class="role">Accent — the problem</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04. TYPOGRAPHY -->
+  <div class="section-header">
+    <div class="section-num">§ 04 — Typography</div>
+    <h2 class="section-title">A <span style="font-style: italic; font-weight: 500;">variable</span> serif, a tight sans, a clinical mono.</h2>
+  </div>
+  <div class="section-body">
+    <p>Three typefaces form the Veldarion voice. <strong>Fraunces</strong> — a variable serif with optical sizing — for headlines and display numerals; at large sizes the optical-size axis makes the strokes more dramatic and editorial. <strong>Inter Tight</strong> — a tight grotesk — for body copy, UI, navigation. <strong>JetBrains Mono</strong> — for eyebrow labels, telemetry, file metadata, HUD readouts. Mixed italic accents on display headlines give the system its editorial character: regular + italic in a single headline line, italic typically colored in a brand accent.</p>
+  </div>
+
+  <div class="type-row">
+    <div class="label">Fraunces · Display · 88pt · Bold · optical sizing auto</div>
+    <div class="sample-display" style="font-size: 56px; font-weight: 700; line-height: 0.98; letter-spacing: -0.02em;">Insurers use AI to deny claims.</div>
+  </div>
+  <div class="type-row">
+    <div class="label">Fraunces · Italic accent · 56pt · Medium italic · amber</div>
+    <div class="sample-display" style="font-size: 36px; font-style: italic; font-weight: 500; color: #B8800E;">Pure Found Money.</div>
+  </div>
+  <div class="type-row">
+    <div class="label">Fraunces · Section headline · 42pt · Bold · with italic accent</div>
+    <div class="sample-display" style="font-size: 30px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em;">The Payer Denial <span style="font-style: italic; font-weight: 500; color: #B8800E;">Rules</span> Graph</div>
+  </div>
+  <div class="type-row">
+    <div class="label">Inter Tight · Body · 17pt · Regular</div>
+    <div class="sample-sans" style="font-size: 17px; line-height: 1.6;">Send us your denied claims. Our agents read the clinical charts, cross-reference payer policies, draft the appeal letters, and file them on your behalf.</div>
+  </div>
+  <div class="type-row">
+    <div class="label">Inter Tight · UI · 14pt · Semibold</div>
+    <div class="sample-sans" style="font-size: 14px; font-weight: 600;">How it works · Contact Us</div>
+  </div>
+  <div class="type-row">
+    <div class="label">JetBrains Mono · Eyebrow · 11pt · Uppercase · tracked</div>
+    <div class="sample-mono" style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.22em; color: #5C5447;">§ 03 — The Moat</div>
+  </div>
+  <div class="type-row">
+    <div class="label">JetBrains Mono · Telemetry · 10pt · Uppercase</div>
+    <div class="sample-mono" style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.18em; color: #5C5447;">rules_graph.live · cycle 4,182 · 12 nodes online</div>
+  </div>
+
+  <!-- 05. COMPONENTS -->
+  <div class="section-header">
+    <div class="section-num">§ 05 — Components</div>
+    <h2 class="section-title">Stamps, seals, and <span style="font-style: italic; font-weight: 500;">filed</span> signals.</h2>
+  </div>
+  <div class="section-body">
+    <p>Every component borrows from legal-document chrome — stamped seals, mono metadata bars, oxblood "Filed" stamps rotated -6°. The CTA is never a flat colored rectangle; it carries a 4px offset shadow that mimics an ink stamp pressed into paper. On hover, the shadow shrinks to 2px and the button translates 2px down — the stamp being pressed.</p>
+  </div>
+
+  <div class="component-row">
+    <div class="label">CTA Button · Primary · chartreuse block, ink text, 4px offset shadow</div>
+    <div class="demo"><div class="demo-cta-primary">Contact Us →</div></div>
+  </div>
+  <div class="component-row">
+    <div class="label">CTA Button · Ink · ink block, chartreuse offset shadow</div>
+    <div class="demo"><div class="demo-cta-ink">Contact Us →</div></div>
+  </div>
+  <div class="component-row">
+    <div class="label">CTA Button · Ghost · transparent, hairline border</div>
+    <div class="demo"><div class="demo-cta-ghost">See how it works ↗</div></div>
+  </div>
+  <div class="component-row">
+    <div class="label">Eyebrow label · mono, uppercase, tracked</div>
+    <div class="demo"><span class="demo-eyebrow">§ 02 — The Solution</span></div>
+  </div>
+  <div class="component-row">
+    <div class="label">Highlight swipe · chartreuse background, skewed -7°</div>
+    <div class="demo">
+      <span class="demo-highlight">
+        <span class="text">fight back</span>
+        <span class="swipe"></span>
+      </span>
+    </div>
+  </div>
+  <div class="component-row">
+    <div class="label">Filed stamp · oxblood border, rotated -6°</div>
+    <div class="demo"><div class="demo-stamp">Filed</div></div>
+  </div>
+  <div class="component-row">
+    <div class="label">Value stamp · amber-tinted, rotated +6°</div>
+    <div class="demo"><div class="demo-stamp-amber">$0 Upfront</div></div>
+  </div>
+
+  <!-- 06. MOTION -->
+  <div class="section-header">
+    <div class="section-num">§ 06 — Motion</div>
+    <h2 class="section-title">Reveal, stagger, and the <span style="font-style: italic; font-weight: 500;">mask wipe</span>.</h2>
+  </div>
+  <div class="section-body">
+    <p>Motion is restrained and editorial. Three primitives carry 95% of all animation: <strong>Reveal</strong> (opacity + y-translation, 0.8s), <strong>StaggerGroup</strong> (parent with staggered children, 0.1s apart), and <strong>MaskReveal</strong> (clip-path wipe upward for serif headlines, 1.1s). All use the ease curve <code>[0.22, 1, 0.36, 1]</code> — a sharp ease-out that feels like paper settling onto a desk.</p>
+    <p><strong>Reduced motion.</strong> All animations honor <code>prefers-reduced-motion</code> via Framer Motion's <code>useReducedMotion()</code> hook. When reduced, Reveal returns plain divs and infinite-loop animations are skipped entirely.</p>
+  </div>
+
+  <div class="motion-spec">
+    <div class="label">Signature animation</div>
+    <div class="name">The Payer Denial Rules Graph</div>
+    <div class="code">Three concentric layers — Veldarion Core (amber), 6-payer ring (chartreuse border), 6-policy-source ring (parchment border). Curved Bézier edges with alternating perpendicular offsets.<br><br>• Inbound pulses (chartreuse, 0.55r): claims arriving at core, 2.8s loop, 2.2s repeat delay<br>• Outbound pulses (amber, 0.85r): appeals being won, 2.2s loop, 3s repeat delay<br>• Core pulse rings: expanding 6→18r every 3.2s, staggered by 1.05s across 3 rings<br>• Policy node twinkle: opacity 0.18→0.42→0.18 every 2.5s, staggered<br>• HUD overlay: rules_graph.live · cycle 4,182 · 12 nodes online · v3.2.0</div>
+  </div>
+
+  <!-- 07. DIMENSION -->
+  <div class="section-header">
+    <div class="section-num">§ 07 — Dimension</div>
+    <h2 class="section-title">The <span style="font-style: italic; font-weight: 500;">Ascent</span> Field.</h2>
+  </div>
+  <div class="section-body">
+    <p>Veldarion's third dimension is a <strong>topographic ink-line terrain</strong> — an engineer's survey of the payer-rules landscape — rendered live in WebGL behind the hero. Through it rises a <strong>chartreuse ascent ridge</strong>: the logo's upward arrow extruded into 3D, its height accelerating quadratically to embody the compounding edge of the rules graph. A signal pulse climbs the ridge every 4.2 seconds — a denied claim being recovered — while three octahedral seals (chartreuse, amber, ink) hover above the path.</p>
+    <p>Depth never decorates for its own sake. Documents become physical objects: the appeal-letter card tilts to the pointer like a brief held in the hand; the Rules Graph rises from the desk on scroll, then hangs as a holographic control surface; the pricing agreement separates into Z-layers with the <strong>10%</strong> numeral and <strong>$0 Upfront</strong> stamp floating above the card plane. Every 3D gesture is a re-statement of the same idea — the brief is a real object, and it is moving upward.</p>
+  </div>
+
+  <div class="terrain-demo">
+    <svg viewBox="0 0 610 230" fill="none" aria-hidden="true">
+      <!-- perspective grid: horizontal contour lines -->
+      <g stroke="#14110C" stroke-opacity="0.28" stroke-width="1">
+        <path d="M20 40 L590 40"/>
+        <path d="M20 62 L590 62"/>
+        <path d="M20 88 L590 88"/>
+        <path d="M20 118 L590 118"/>
+        <path d="M20 152 L590 152"/>
+        <path d="M20 190 L590 190"/>
+      </g>
+      <!-- perspective grid: converging verticals -->
+      <g stroke="#14110C" stroke-opacity="0.16" stroke-width="1">
+        <path d="M20 30 L110 205"/>
+        <path d="M120 30 L180 207"/>
+        <path d="M230 30 L250 209"/>
+        <path d="M340 30 L315 210"/>
+        <path d="M450 30 L380 208"/>
+        <path d="M560 30 L445 206"/>
+      </g>
+      <!-- ascent ridge: quadratic rise, chartreuse -->
+      <path d="M40 195 C 180 190, 300 160, 380 110 C 440 72, 500 45, 560 28" stroke="#C5F23D" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- ridge halo -->
+      <path d="M40 195 C 180 190, 300 160, 380 110 C 440 72, 500 45, 560 28" stroke="#A8D11C" stroke-opacity="0.25" stroke-width="10" stroke-linecap="round"/>
+      <!-- node markers along the ridge -->
+      <g fill="#C5F23D" stroke="#14110C" stroke-width="1">
+        <circle cx="95" cy="193" r="4"/>
+        <circle cx="210" cy="176" r="4"/>
+        <circle cx="310" cy="138" r="4"/>
+        <circle cx="400" cy="95" r="4"/>
+        <circle cx="480" cy="55" r="4"/>
+        <circle cx="560" cy="28" r="4"/>
+      </g>
+      <!-- signal pulse (mid-ridge) with halo -->
+      <circle cx="355" cy="120" r="11" fill="#C5F23D" fill-opacity="0.3"/>
+      <circle cx="355" cy="120" r="4.5" fill="#14110C"/>
+      <!-- floating seals: octahedra -->
+      <g>
+        <path d="M470 78 L482 92 L470 106 L458 92 Z" fill="#A8D11C" stroke="#14110C" stroke-width="1"/>
+        <path d="M525 38 L535 50 L525 62 L515 50 Z" fill="#B8800E" stroke="#14110C" stroke-width="1"/>
+        <path d="M575 14 L584 24 L575 34 L566 24 Z" fill="#14110C"/>
+      </g>
+      <!-- baseline axis -->
+      <path d="M20 210 L590 210" stroke="#14110C" stroke-opacity="0.35" stroke-width="1.5"/>
+    </svg>
+    <div class="corner-hud">ascent_field.live · dpr ≤ 2 · 60fps</div>
+  </div>
+
+  <div class="motion-spec">
+    <div class="label">WebGL scene specification</div>
+    <div class="name">ascent-field.tsx · Three.js 0.185</div>
+    <div class="code">Layered separation architecture — the 3D scene is an isolated layer beneath the Motion UI layer; the two never share state.<br><br>
+• Terrain: LineSegments grid, 68×42 vertices desktop / 42×26 mobile, vertex-colored ink → amber → chartreuse toward the ridge, dissolving to parchment at the frame edges<br>
+• Ridge height: h(t) = 0.3 + t² · 3.1 — quadratic acceleration = the compounding edge<br>
+• Signal pulse: eased loop up the ridge every 4.2s, ink core + chartreuse halo, size pulsing at 6 rad/s<br>
+• Camera rig: pointer parallax (±0.75x, pointer:fine only) + idle sway (0.07 rad/s) + scroll drift (group and camera separate with scroll)<br>
+• Atmosphere: fog to parchment 9→26 units; opacity fades ×0.5 as the hero scrolls away</div>
+  </div>
+
+  <div class="section-body">
+    <ul class="clean">
+      <li><strong>Progressive enhancement:</strong> <code>three</code> is dynamically imported after hydration — the landing page renders fully without it; WebGL failure degrades silently to the parchment background.</li>
+      <li><strong>Battery discipline:</strong> the render loop pauses when the canvas leaves the viewport or the tab hides (IntersectionObserver + visibilitychange); DPR is capped at 2 desktop / 1.5 mobile; the renderer requests low-power GPU profiles.</li>
+      <li><strong>Reduced motion:</strong> a single static frame is rendered and the loop never starts; <code>Tilt3D</code> disables pointer tilt entirely.</li>
+      <li><strong>Cleanup:</strong> every geometry, material, and renderer is disposed on unmount — zero leaked GPU memory across route changes.</li>
+      <li><strong>Tilt3D wrapper:</strong> spring-physics pointer tilt (stiffness 160 / damping 18), mouse pointers only; children opt into depth with <code>translateZ</code> planes (14–34px) over <code>preserve-3d</code>.</li>
+    </ul>
+  </div>
+
+  <!-- 08. VOICE -->
+  <div class="section-header">
+    <div class="section-num">§ 08 — Voice &amp; Tone</div>
+    <h2 class="section-title">Brief. Legal. <span style="font-style: italic; font-weight: 500;">Confident</span>.</h2>
+  </div>
+  <div class="section-body">
+    <p>Veldarion writes like a medical director writing a brief — short sentences, technical terms used without apology, no marketing hedging. We say "denied" not "deferred." We say "appeal" not "request for reconsideration." We say "you pay only when revenue is recovered" not "flexible pricing options."</p>
+    <p>The numbered eyebrow labels (§ 01, § 02, § 03...) reinforce that this is a filed document, not a marketing site. The mono metadata bars ("Re: Appeal — Denied Claim #8472 · ICD-10: M54.5 · Policy: CGS-LCD-L33515 · Confidence: 94%") give the design clinical authority.</p>
+    <ul class="clean">
+      <li><strong>Do say:</strong> "Send us your denied claims. We handle the appeal end-to-end."</li>
+      <li><strong>Do say:</strong> "You pay only when revenue is recovered."</li>
+      <li><strong>Do say:</strong> "10% of recovered revenue. $0 upfront."</li>
+      <li><strong>Do say:</strong> "Our agents read the charts and file the appeals on your behalf."</li>
+      <li><strong>Don't say:</strong> "Sign up free," "Start your free trial," "Get early access," "Talk to sales."</li>
+      <li><strong>Don't say:</strong> "AI-powered platform," "Leverage intelligence," "Disrupt the ecosystem."</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ============ ENDING ============ -->
+<div class="ending">
+  <div>
+    <div class="closing-eyebrow">§ End — Filing</div>
+  </div>
+  <div>
+    <div class="closing-title">Stop letting AI<br><span style="font-style: italic; font-weight: 500;">deny</span> your claims.</div>
+  </div>
+  <div class="closing-foot">
+    Veldarion Design System · v1.1 · Filed 2024 · hello@veldarion.com
+  </div>
+</div>
+
+</body>
+</html>
