@@ -34,7 +34,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NEXT_OUTPUT_MODE: export
-      NEXT_PUBLIC_BASE_PATH: /Veldarion
       NEXT_TELEMETRY_DISABLED: 1
 
     steps:
