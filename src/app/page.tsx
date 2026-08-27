@@ -1553,7 +1553,7 @@ function FinalCTA() {
               href="mailto:hello@veldarion.com"
               className="font-bold underline decoration-[#14110C]/40 underline-offset-2 hover:decoration-[#14110C]"
             >
-              hello@veldarion.com
+              shivansh@veldarion.com
             </a>
           </p>
         </Reveal>
