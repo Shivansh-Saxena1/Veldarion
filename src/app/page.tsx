@@ -61,7 +61,7 @@ const C = {
    CONTACT EMAIL — the ONE line to edit when changing the address.
    Used by every mailto link and the visible email on the page.
 ---------------------------------------------------------------- */
-const CONTACT_EMAIL = "hello@veldarion.com";
+const CONTACT_EMAIL = "shivansh@veldarion.com";
 const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
   "Veldarion — Denied Claims Recovery Inquiry"
 )}`;
