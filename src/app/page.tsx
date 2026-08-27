@@ -27,6 +27,7 @@ import {
   Zap,
   Menu,
   X,
+  Copy,
 } from "lucide-react";
 import AscentField from "@/components/veldarion/ascent-field";
 import Tilt3D from "@/components/veldarion/tilt-3d";
@@ -55,6 +56,15 @@ const C = {
   oxblood: "#7A2E2E",
   oxbloodSoft: "#9C3D3D",
 };
+
+/* ----------------------------------------------------------------
+   CONTACT EMAIL — the ONE line to edit when changing the address.
+   Used by every mailto link and the visible email on the page.
+---------------------------------------------------------------- */
+const CONTACT_EMAIL = "hello@veldarion.com";
+const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+  "Veldarion — Denied Claims Recovery Inquiry"
+)}`;
 
 /* ----------------------------------------------------------------
    Veldarion logo — V mark + recovered-claim signal arrow
@@ -294,7 +304,7 @@ function CTAButton({
   } as const;
   if (href) {
     return (
-      <motion.a href={href} {...motionProps}>
+      <motion.a href={href} onClick={onClick} {...motionProps}>
         <span className="relative z-10 flex items-center gap-2">{children}</span>
       </motion.a>
     );
@@ -796,7 +806,7 @@ function Solution() {
   ];
 
   return (
-    <section id="solution" className="px-6 py-20 sm:py-28">
+    <section id="solution" className="scroll-mt-16 px-6 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6 border-b border-[#14110C]/15 pb-6">
@@ -861,7 +871,7 @@ function Moat() {
   return (
     <section
       id="moat"
-      className="relative overflow-hidden bg-[#14110C] px-6 py-24 sm:py-32"
+      className="relative scroll-mt-16 overflow-hidden bg-[#14110C] px-6 py-24 sm:py-32"
     >
       {/* Top bleed — ink fades in from parchment (taller, more visible) */}
       <div
@@ -1402,7 +1412,7 @@ function Pricing() {
     "Cited, audit-ready appeal letters",
   ];
   return (
-    <section id="pricing" className="px-6 py-20 sm:py-28">
+    <section id="pricing" className="scroll-mt-16 px-6 py-20 sm:py-28">
       <div className="mx-auto max-w-3xl">
         <Reveal>
           <div className="text-center">
@@ -1488,13 +1498,59 @@ function Pricing() {
 }
 
 /* ----------------------------------------------------------------
-   7. FINAL CTA — full-bleed chartreuse, ink button
+   7. FINAL CTA — full-bleed chartreuse, ink button + contact card
 ---------------------------------------------------------------- */
+
+/* Copy-to-clipboard email button — works even when the visitor has no
+   mail client configured (webmail users), where mailto: does nothing. */
+function CopyEmailButton({ email }: { email: string }) {
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch {
+      // Clipboard API unavailable (older browsers) — legacy fallback
+      const ta = document.createElement("textarea");
+      ta.value = email;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+      } catch {
+        /* noop */
+      }
+      document.body.removeChild(ta);
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  };
+  return (
+    <button
+      type="button"
+      onClick={copy}
+      className={`inline-flex shrink-0 items-center justify-center gap-2 rounded-full border-2 px-5 py-2.5 font-mono text-[12px] font-bold tracking-tight transition-all duration-200 ${
+        copied
+          ? "border-[#14110C] bg-[#14110C] text-[#C5F23D]"
+          : "border-[#14110C]/30 bg-transparent text-[#14110C] hover:border-[#14110C] hover:bg-[#14110C]/5"
+      }`}
+    >
+      {copied ? (
+        <Check className="h-3.5 w-3.5" strokeWidth={3} />
+      ) : (
+        <Copy className="h-3.5 w-3.5" />
+      )}
+      {copied ? "Copied" : "Copy email"}
+    </button>
+  );
+}
+
 function FinalCTA() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-[#C5F23D] px-6 py-28 sm:py-36"
+      className="relative scroll-mt-16 overflow-hidden bg-[#C5F23D] px-6 py-28 sm:py-36"
     >
       {/* big paper texture dots */}
       <div
@@ -1513,7 +1569,7 @@ function FinalCTA() {
 
       <div className="relative mx-auto max-w-4xl text-center">
         <Reveal>
-          <Eyebrow tone="ink">§ 05 — Final Brief</Eyebrow>
+          <Eyebrow tone="ink">§ 05 — Contact</Eyebrow>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="mx-auto mt-4 max-w-3xl font-serif text-[48px] font-bold leading-[0.98] tracking-[-0.025em] text-[#14110C] sm:text-[80px] sm:leading-[0.95]">
@@ -1530,7 +1586,7 @@ function FinalCTA() {
         <Reveal delay={0.3}>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <CTAButton
-              href="mailto:hello@veldarion.com"
+              href={CONTACT_MAILTO}
               variant="ink"
               className="w-full px-7 py-4 text-[15px] sm:w-auto"
             >
@@ -1547,15 +1603,20 @@ function FinalCTA() {
           </div>
         </Reveal>
         <Reveal delay={0.35}>
-          <p className="mt-6 text-center font-mono text-[12px] text-[#14110C]/70">
-            ↳ Or email us directly at{" "}
-            <a
-              href="mailto:hello@veldarion.com"
-              className="font-bold underline decoration-[#14110C]/40 underline-offset-2 hover:decoration-[#14110C]"
-            >
-              hello@veldarion.com
-            </a>
-          </p>
+          <div className="mx-auto mt-8 flex w-full max-w-md flex-col gap-3 rounded-2xl border-2 border-[#14110C]/15 bg-[#F4EFE4]/70 p-4 backdrop-blur-sm sm:flex-row sm:items-center sm:gap-4">
+            <div className="min-w-0 flex-1 text-left">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#14110C]/55">
+                Email us directly
+              </p>
+              <a
+                href={CONTACT_MAILTO}
+                className="mt-1 block truncate font-mono text-[14px] font-bold text-[#14110C] underline decoration-[#14110C]/40 underline-offset-4 transition-colors hover:decoration-[#14110C]"
+              >
+                {CONTACT_EMAIL}
+              </a>
+            </div>
+            <CopyEmailButton email={CONTACT_EMAIL} />
+          </div>
         </Reveal>
         <Reveal delay={0.4}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-[11px] text-[#14110C]/70">
