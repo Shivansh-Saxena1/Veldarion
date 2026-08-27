@@ -1603,20 +1603,15 @@ function FinalCTA() {
           </div>
         </Reveal>
         <Reveal delay={0.35}>
-          <div className="mx-auto mt-8 flex w-full max-w-md flex-col gap-3 rounded-2xl border-2 border-[#14110C]/15 bg-[#F4EFE4]/70 p-4 backdrop-blur-sm sm:flex-row sm:items-center sm:gap-4">
-            <div className="min-w-0 flex-1 text-left">
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#14110C]/55">
-                Email us directly
-              </p>
-              <a
-                href={CONTACT_MAILTO}
-                className="mt-1 block truncate font-mono text-[14px] font-bold text-[#14110C] underline decoration-[#14110C]/40 underline-offset-4 transition-colors hover:decoration-[#14110C]"
-              >
-                {CONTACT_EMAIL}
-              </a>
-            </div>
-            <CopyEmailButton email={CONTACT_EMAIL} />
-          </div>
+          <p className="mt-6 text-center font-mono text-[12px] text-[#14110C]/70">
+            ↳ Or email us directly at{" "}
+            <a
+              href="mailto:hello@veldarion.com"
+              className="font-bold underline decoration-[#14110C]/40 underline-offset-2 hover:decoration-[#14110C]"
+            >
+              hello@veldarion.com
+            </a>
+          </p>
         </Reveal>
         <Reveal delay={0.4}>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-[11px] text-[#14110C]/70">
