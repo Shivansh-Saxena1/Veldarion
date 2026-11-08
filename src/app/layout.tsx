@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
@@ -17,24 +17,37 @@ const GTM_ID = "GTM-5XS78BW6";
   JetBrains Mono — monospaced; eyebrow labels, telemetry, metadata, HUD
 */
 
-const fraunces = Fraunces({
+const fraunces = localFont({
+  src: [
+    { path: "./fonts/Fraunces-400.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/Fraunces-500.ttf", weight: "500", style: "normal" },
+    { path: "./fonts/Fraunces-600.ttf", weight: "600", style: "normal" },
+    { path: "./fonts/Fraunces-700.ttf", weight: "700", style: "normal" },
+    { path: "./fonts/Fraunces-900.ttf", weight: "900", style: "normal" },
+    { path: "./fonts/Fraunces-400-italic.ttf", weight: "400", style: "italic" },
+    { path: "./fonts/Fraunces-500-italic.ttf", weight: "500", style: "italic" },
+    { path: "./fonts/Fraunces-600-italic.ttf", weight: "600", style: "italic" },
+    { path: "./fonts/Fraunces-700-italic.ttf", weight: "700", style: "italic" },
+    { path: "./fonts/Fraunces-900-italic.ttf", weight: "900", style: "italic" },
+  ],
   variable: "--font-fraunces",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "900"],
-  style: ["normal", "italic"],
   display: "swap",
 });
 
-const interTight = Inter_Tight({
+const interTight = localFont({
+  src: [
+    { path: "./fonts/InterTight-400.ttf", weight: "400" },
+    { path: "./fonts/InterTight-500.ttf", weight: "500" },
+    { path: "./fonts/InterTight-600.ttf", weight: "600" },
+    { path: "./fonts/InterTight-700.ttf", weight: "700" },
+  ],
   variable: "--font-inter-tight",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const mono = JetBrains_Mono({
+const mono = localFont({
+  src: "./fonts/JetBrainsMono-400.ttf",
   variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
   display: "swap",
 });
 
