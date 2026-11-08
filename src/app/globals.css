@@ -127,3 +127,53 @@
     position: relative;
   }
 }
+
+/* Article body typography — legal-brief editorial style */
+.article-body {
+  @apply text-[#2A2620] leading-relaxed;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+.article-body h1 {
+  @apply font-serif font-bold text-[#14110C] text-[32px] sm:text-[42px] leading-[1.05] tracking-tight mb-6 mt-10;
+}
+.article-body h2 {
+  @apply font-serif font-bold text-[#14110C] text-[26px] sm:text-[32px] leading-[1.1] tracking-tight mb-4 mt-12;
+}
+.article-body h3 {
+  @apply font-serif font-semibold text-[#14110C] text-[20px] leading-[1.2] mb-3 mt-8;
+}
+.article-body p {
+  @apply mb-5 text-[15px];
+}
+.article-body ul,
+.article-body ol {
+  @apply mb-5 pl-6 text-[15px] list-disc list-inside;
+}
+.article-body ol {
+  @apply list-decimal;
+}
+.article-body li {
+  @apply mb-2;
+}
+.article-body blockquote {
+  @apply border-l-2 border-[#A8D11C] bg-[#C5F23D]/10 pl-5 py-2 my-5 italic text-[#14110C];
+}
+.article-body table {
+  @apply w-full border-collapse mb-5 text-[13px];
+  overflow-x: auto;
+  display: block;
+}
+.article-body th,
+.article-body td {
+  @apply border border-[#14110C]/20 px-3 py-2 text-left;
+}
+.article-body th {
+  @apply bg-[#14110C]/5 font-bold text-[#14110C];
+}
+.article-body a {
+  @apply text-[#B8800E] underline underline-offset-2 hover:text-[#7A2E2E];
+}
+.article-body hr {
+  @apply border-t border-[#14110C]/15 my-8;
+}

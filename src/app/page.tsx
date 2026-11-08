@@ -5,15 +5,10 @@ import {
   motion,
   useReducedMotion,
   useInView,
-  useScroll,
-  useTransform,
   type Variants,
 } from "framer-motion";
 import { useRef } from "react";
 import {
-  FileWarning,
-  Clock,
-  DollarSign,
   ScanText,
   Search,
   FileText,
@@ -22,15 +17,13 @@ import {
   ArrowUpRight,
   Check,
   Sparkles,
-  Network,
-  TrendingUp,
-  Zap,
   Menu,
   X,
-  Copy,
 } from "lucide-react";
 import AscentField from "@/components/veldarion/ascent-field";
+import Link from "next/link";
 import Tilt3D from "@/components/veldarion/tilt-3d";
+import { Navbar, Footer } from "@/components/veldarion/nav-footer";
 
 /* ================================================================
    VELDARION — "The Appeal Brief" aesthetic
@@ -55,7 +48,7 @@ const C = {
   amberDeep: "#B8800E",
   oxblood: "#7A2E2E",
   oxbloodSoft: "#9C3D3D",
-};
+} as const;
 
 /* ----------------------------------------------------------------
    CONTACT EMAIL — the ONE line to edit when changing the address.
@@ -63,6 +56,12 @@ const C = {
 ---------------------------------------------------------------- */
 const CONTACT_EMAIL = "shivansh@veldarion.com";
 const CONTACT_MAILTO = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+  "Veldarion — Denied Claims Recovery Inquiry"
+)}`;
+
+/* Direct email for the FinalCTA "Email us directly" link */
+const DIRECT_EMAIL = "shivansh@veldarion.com";
+const DIRECT_MAILTO = `mailto:${DIRECT_EMAIL}?subject=${encodeURIComponent(
   "Veldarion — Denied Claims Recovery Inquiry"
 )}`;
 
@@ -126,11 +125,6 @@ function VeldarionLogo({
 /* ----------------------------------------------------------------
    Motion primitives
 ---------------------------------------------------------------- */
-type RevealProps = {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-};
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -145,7 +139,15 @@ const fadeUp: Variants = {
   }),
 };
 
-function Reveal({ children, className, delay = 0 }: RevealProps) {
+function Reveal({
+  children,
+  className,
+  delay = 0,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+}) {
   const reduce = useReducedMotion() ?? false;
   if (reduce) return <div className={className}>{children}</div>;
   return (
@@ -179,7 +181,7 @@ const staggerChild: Variants = {
     y: 0,
     transition: { duration: reduce ? 0.01 : 0.7, ease: [0.22, 1, 0.36, 1] },
   }),
-};
+}
 
 function StaggerGroup({
   children,
@@ -218,7 +220,6 @@ function StaggerItem({
   );
 }
 
-/* Mask reveal — for serif headlines, sweeps a clip-path upward */
 function MaskReveal({
   children,
   className,
@@ -340,59 +341,6 @@ function Highlight({
   );
 }
 
-/* Animated number counter — for big stats */
-function CountUp({
-  to,
-  suffix = "",
-  prefix = "",
-  duration = 1.8,
-}: {
-  to: number;
-  suffix?: string;
-  prefix?: string;
-  duration?: number;
-}) {
-  const reduce = useReducedMotion() ?? false;
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-  const [display, setDisplay] = useState(0);
-  if (reduce && inView && display === 0) setDisplay(to);
-  return (
-    <span ref={ref}>
-      {inView && !reduce ? (
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.2 }}
-        >
-          <CountUpInner to={to} duration={duration} />
-        </motion.span>
-      ) : (
-        <>{display || to}</>
-      )}
-      {prefix}
-      {suffix}
-    </span>
-  );
-}
-
-function CountUpInner({ to, duration }: { to: number; duration: number }) {
-  const [val, setVal] = useState(0);
-  const started = useRef(false);
-  if (!started.current) {
-    started.current = true;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / (duration * 1000));
-      const eased = 1 - Math.pow(1 - t, 3);
-      setVal(Math.round(to * eased));
-      if (t < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }
-  return <>{val}</>;
-}
-
 /* Section divider — inked rule with chartreuse tick */
 function Rule() {
   return (
@@ -405,111 +353,8 @@ function Rule() {
 }
 
 /* ----------------------------------------------------------------
-   1. NAVIGATION — parchment, ink, mono labels
----------------------------------------------------------------- */
-function Navbar() {
-  const [open, setOpen] = useState(false);
-  const links = [
-    { label: "Problem", href: "#problem", num: "§01" },
-    { label: "How it works", href: "#solution", num: "§02" },
-    { label: "The Moat", href: "#moat", num: "§03" },
-    { label: "Pricing", href: "#pricing", num: "§04" },
-  ];
-  return (
-    <header className="sticky top-0 z-50">
-      <div
-        className="border-b border-[#14110C]/15 bg-[#F4EFE4]/85 backdrop-blur-md"
-        style={{ boxShadow: "0 1px 0 0 rgba(20,17,12,0.04) inset" }}
-      >
-        <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          {/* Logo */}
-          <a href="#top" className="inline-flex">
-            <VeldarionLogo tone="ink" />
-          </a>
-
-          {/* Desktop links */}
-          <div className="hidden items-center gap-7 md:flex">
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="group flex items-baseline gap-1.5 text-[13px] font-medium text-[#5C5447] transition-colors hover:text-[#14110C]"
-              >
-                <span className="font-mono text-[10px] text-[#8A8170] group-hover:text-[#A8D11C]">
-                  {l.num}
-                </span>
-                {l.label}
-              </a>
-            ))}
-          </div>
-
-          {/* Desktop CTA */}
-          <div className="hidden items-center gap-3 md:flex">
-            <a
-              href="#solution"
-              className="text-[13px] font-medium text-[#5C5447] transition-colors hover:text-[#14110C]"
-            >
-              How it works
-            </a>
-            <CTAButton href="#contact" className="px-5 py-2.5 text-[12px]">
-              Contact Us
-              <ArrowRight className="h-3.5 w-3.5" />
-            </CTAButton>
-          </div>
-
-          {/* Mobile toggle */}
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            className="grid h-10 w-10 place-items-center rounded-sm border border-[#14110C]/20 text-[#14110C] md:hidden"
-            aria-label="Toggle menu"
-            aria-expanded={open}
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </nav>
-
-        {/* Mobile menu */}
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-[#14110C]/15 bg-[#F4EFE4]/95 backdrop-blur-md md:hidden"
-          >
-            <div className="space-y-1 px-6 py-4">
-              {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="flex items-baseline gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-[#14110C] hover:bg-[#14110C]/5"
-                >
-                  <span className="font-mono text-[10px] text-[#8A8170]">
-                    {l.num}
-                  </span>
-                  {l.label}
-                </a>
-              ))}
-              <CTAButton
-                href="#contact"
-                className="mt-3 w-full"
-                onClick={() => setOpen(false)}
-              >
-                Contact Us
-                <ArrowRight className="h-3.5 w-3.5" />
-              </CTAButton>
-            </div>
-          </motion.div>
-        )}
-      </div>
-    </header>
-  );
-}
-
-/* ----------------------------------------------------------------
-   2. HERO — editorial, asymmetric, big serif, highlighter swipe
----------------------------------------------------------------- */
+   1. HERO — editorial, asymmetric, big serif, highlighter swipe
+----------------------------------------------------------------- */
 function Hero() {
   return (
     <section
@@ -559,49 +404,37 @@ function Hero() {
 
             <MaskReveal delay={0.1} className="mt-3">
               <h1 className="font-serif text-[44px] font-bold leading-[1.02] tracking-[-0.02em] text-[#14110C] sm:text-[68px] md:text-[88px] md:leading-[0.98]">
-                Insurers use AI to deny claims.
-              </h1>
-            </MaskReveal>
-
-            <MaskReveal delay={0.25} className="mt-2">
-              <h1 className="font-serif text-[44px] font-bold leading-[1.02] tracking-[-0.02em] text-[#14110C] sm:text-[68px] md:text-[88px] md:leading-[0.98]">
-                We build AI agents to{" "}
-                <Highlight>fight&nbsp;back</Highlight>.
+                Fight medical claim denials with evidence, not overtime.
               </h1>
             </MaskReveal>
 
             <Reveal delay={0.4}>
               <p className="mt-8 max-w-xl text-[17px] leading-relaxed text-[#2A2620]">
-                Send us your denied claims. Our autonomous agents read the
-                clinical charts, cross-reference payer policies, draft the
-                appeal letters, and file them on your behalf.{" "}
-                <span className="font-semibold text-[#14110C]">
-                  You pay only when revenue is recovered.
-                </span>
+                Veldarion helps orthopedic, oncology, and other specialty practices analyze denied claims, find the payer-policy evidence that supports coverage, and prepare fully cited appeals — reviewed by experienced humans before anything is delivered.
               </p>
             </Reveal>
 
             <Reveal delay={0.5}>
               <div className="mt-9 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-                <CTAButton href="#contact" className="px-7 py-4 text-[15px]">
-                  Contact Us
+                <CTAButton href="/contact" className="px-7 py-4 text-[15px]">
+                  Submit a denied claim for review
                   <ArrowRight className="h-4 w-4" />
                 </CTAButton>
-                <CTAButton href="#solution" variant="ghost" className="px-6 py-4 text-[15px]">
+                <CTAButton href="/how-it-works" variant="ghost" className="px-6 py-4 text-[15px]">
                   See how it works
                   <ArrowUpRight className="h-4 w-4" />
                 </CTAButton>
               </div>
             </Reveal>
 
-            <Reveal delay={0.6}>
-              <p className="mt-7 font-mono text-[12px] text-[#8A8170]">
-                ↳ No software to learn. No staff to train. We handle the appeal end-to-end.
+            <Reveal delay={0.55}>
+              <p className="mt-4 font-mono text-[12px] text-[#A8D11C]">
+                Now accepting beta clinics
               </p>
             </Reveal>
           </div>
 
-          {/* Right — live AI appeal letter preview (product demo).
+          {/* Right — illustrative appeal letter preview (product demo).
               Held in 3D: pointer tilt like a brief in the hand. */}
           <div className="lg:col-span-4">
             <motion.div
@@ -611,6 +444,13 @@ function Hero() {
             >
               <Tilt3D max={3.5} perspective={1200}>
               <div className="relative rounded-sm border-2 border-[#14110C] bg-white shadow-[8px_8px_0_0_#14110C] [transform-style:preserve-3d]">
+                {/* Illustrative label */}
+                <div className="absolute -top-3 left-5 right-5">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#14110C]/20 bg-[#F4EFE4] px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-[#5C5447]">
+                    Illustrative example — synthetic data
+                  </span>
+                </div>
+
                 {/* Letter header — looks like document chrome */}
                 <div className="flex items-center justify-between border-b-2 border-[#14110C] bg-[#14110C] px-5 py-2.5 [transform:translateZ(14px)]">
                   <div className="flex items-center gap-2">
@@ -673,23 +513,6 @@ function Hero() {
               </div>
               </Tilt3D>
             </motion.div>
-
-            {/* Filed stamp — anchored below the letter preview */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="mt-5 flex items-center gap-3">
-                <div className="rotate-[-6deg] rounded-sm border-2 border-[#7A2E2E] px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-widest text-[#7A2E2E]">
-                  Filed
-                </div>
-                <div className="font-mono text-[11px] leading-tight text-[#8A8170]">
-                  17 appeals filed<br />
-                  by our agents this hour
-                </div>
-              </div>
-            </motion.div>
           </div>
         </div>
       </div>
@@ -698,27 +521,24 @@ function Hero() {
 }
 
 /* ----------------------------------------------------------------
-   3. PROBLEM — oxblood accents, 3-col editorial grid
+   2. PROBLEM — oxblood accents, cited stats
 ---------------------------------------------------------------- */
 function Problem() {
   const items = [
     {
-      icon: FileWarning,
       num: "i.",
-      title: "Payers auto-deny",
-      body: "Payers use AI to auto-deny high-dollar procedures — often batch-rejecting entire categories of specialty care without a clinician ever reviewing the chart. The denial is the default; the appeal is the exception.",
+      title: "Payers deny at scale.",
+      body: "Medical-necessity policies, prior-auth rules, and bundling edits are applied automatically across every claim. The denial is the default; the appeal is the exception.",
     },
     {
-      icon: Clock,
       num: "ii.",
-      title: "Manual appeals are slow",
-      body: "Nurses and billing staff spend hours reading 50-page clinical charts just to draft one appeal letter. The math never works: there are more denials than hours in a day, so most go unchallenged.",
+      title: "Appeals eat your team's week.",
+      body: "Reading a 50-page chart, finding the LCD clause, drafting the letter — that's an afternoon per denial, and the queue keeps growing.",
     },
     {
-      icon: DollarSign,
       num: "iii.",
-      title: "Revenue left on the table",
-      body: "Clinics leave hundreds of thousands of dollars on the table to un-appealed denials — write-offs that quietly erode margin, capacity, and the ability to invest in care.",
+      title: "Revenue gets quietly written off.",
+      body: "When the cost of an appeal approaches the value of the claim, the denial goes unchallenged. That's margin leaking out of the practice every month.",
     },
   ];
 
@@ -730,35 +550,47 @@ function Problem() {
             <div className="md:col-span-5">
               <Eyebrow tone="oxblood">§ 01 — The Problem</Eyebrow>
               <h2 className="mt-4 font-serif text-[42px] font-bold leading-[1.05] tracking-[-0.02em] text-[#14110C] sm:text-[56px]">
-                The <em className="font-serif italic font-medium text-[#7A2E2E]">Bureaucratic</em> Bottleneck
+                The denial math is broken
               </h2>
             </div>
             <div className="md:col-span-6 md:col-start-7">
               <p className="text-[17px] leading-relaxed text-[#2A2620]">
-                US healthcare loses{" "}
-                <span className="font-serif text-2xl font-bold text-[#7A2E2E]">
-                  $250B
-                </span>{" "}
-                annually on administrative friction. Payers weaponize that
-                friction with automation. Clinics fight back with sticky notes
-                and overtime — a war they cannot win by hand.
+                Payers review at machine scale. Specialty clinics answer by hand — when there's time.
               </p>
             </div>
           </div>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <ul className="mt-10 space-y-4 text-[15px] leading-relaxed text-[#2A2620] max-w-3xl">
+            <li className="flex items-start gap-3">
+              <span className="mt-0.5 font-mono text-[#7A2E2E]">•</span>
+              Hospitals lose an average of <strong className="text-[#14110C]">4.8% of net patient revenue to denials</strong> (HFMA Pulse Survey, 2025).
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-0.5 font-mono text-[#7A2E2E]">•</span>
+              The average appeal costs about <strong className="text-[#14110C]">$57 in staff time</strong> to prepare (Premier analysis, 2025, cited by HFMA).
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-0.5 font-mono text-[#7A2E2E]">•</span>
+              Medicare Advantage plans denied <strong className="text-[#14110C]">12% of standard prior-authorization requests</strong> in 2025 — and <strong className="text-[#14110C]">overturned 67% of the denials that were appealed</strong> (KFF analysis of newly required insurer metrics, 2026).
+            </li>
+          </ul>
+        </Reveal>
+
+        <Reveal delay={0.2}>
+          <p className="mt-8 text-[17px] leading-relaxed text-[#2A2620] max-w-2xl">
+            The problem isn't that appeals don't work. It's that most denials never get a real one.
+          </p>
         </Reveal>
 
         <StaggerGroup className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-[#14110C]/20 bg-[#14110C]/20 md:grid-cols-3">
           {items.map((item) => (
             <StaggerItem key={item.title}>
               <div className="group relative h-full bg-[#F4EFE4] p-8 transition-colors hover:bg-[#E8E0CF]">
-                <div className="flex items-start justify-between">
-                  <span className="grid h-12 w-12 place-items-center rounded-sm border border-[#7A2E2E]/30 bg-[#7A2E2E]/10 text-[#7A2E2E]">
-                    <item.icon className="h-5 w-5" strokeWidth={1.75} />
-                  </span>
-                  <span className="font-serif text-2xl italic text-[#8A8170]">
-                    {item.num}
-                  </span>
-                </div>
+                <span className="font-serif text-2xl italic text-[#8A8170]">
+                  {item.num}
+                </span>
                 <h3 className="mt-6 font-serif text-2xl font-bold tracking-tight text-[#14110C]">
                   {item.title}
                 </h3>
@@ -775,7 +607,7 @@ function Problem() {
 }
 
 /* ----------------------------------------------------------------
-   4. SOLUTION — 4-step flow, legal-brief numbering
+   3. SOLUTION — 4-step flow, human review section, solution links
 ---------------------------------------------------------------- */
 function Solution() {
   const steps = [
@@ -801,7 +633,7 @@ function Solution() {
       icon: CheckCircle2,
       num: "04.",
       title: "Draft",
-      body: "We generate a legally sound, fully cited appeal letter tailored to the denial reason — and file it on your behalf. No clinician review required.",
+      body: "We generate a fully cited appeal letter tailored to the denial reason — and deliver it for your review. [VERIFY: filing capability — state exactly what is true]",
     },
   ];
 
@@ -813,28 +645,16 @@ function Solution() {
             <div>
               <Eyebrow tone="chartreuse">§ 02 — The Solution</Eyebrow>
               <h2 className="mt-4 font-serif text-[42px] font-bold leading-[1.05] tracking-[-0.02em] text-[#14110C] sm:text-[56px]">
-                From denial to recovered revenue{" "}
-                <span className="relative inline-block">
-                  <span className="relative z-10 italic">in 3 seconds.</span>
-                  <span
-                    aria-hidden
-                    className="absolute inset-x-[-4px] bottom-1 h-[0.55em] -z-0 bg-[#C5F23D]"
-                    style={{ transform: "skewX(-7deg)", opacity: 0.9 }}
-                  />
-                </span>
+                What Veldarion does
               </h2>
             </div>
-            <p className="max-w-xs font-mono text-[12px] leading-relaxed text-[#5C5447]">
-              Four autonomous steps.<br />Zero work for your team.<br />We handle the
-              entire appeal.
-            </p>
           </div>
         </Reveal>
 
-        <StaggerGroup className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <StaggerGroup className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
             <StaggerItem key={s.num}>
-              <div className="group relative h-full rounded-sm border border-[#14110C]/20 bg-[#F4EFE4] p-6 transition-all duration-300 hover:border-[#14110C] hover:bg-[#E8E0CF]">
+              <div className="group relative h-full rounded-sm border border-[#14110C]/20 bg-[#F4EFE4] p-6 transition-all duration-300 hover:border-[#14110C] hover:bg-[#E8E0CF] min-w-0">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[11px] font-bold tracking-widest text-[#A8D11C]">
                     {s.num}
@@ -859,543 +679,156 @@ function Solution() {
             </StaggerItem>
           ))}
         </StaggerGroup>
+
+        {/* Human review section */}
+        <Reveal delay={0.2} className="mt-16">
+          <div className="rounded-sm border-2 border-[#C5F23D] bg-[#C5F23D] p-8 sm:p-10 text-[#14110C]">
+            <div className="flex items-start gap-3">
+              <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-full bg-[#14110C] text-[#C5F23D] font-mono text-[11px] font-bold">
+                ✓
+              </span>
+              <div>
+                <h3 className="font-serif text-2xl font-bold">
+                  Human review, every time
+                </h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-[#2A2620]">
+                  AI does the reading and the drafting. Experienced reviewers check the citations, the clinical summary, and the argument before anything is delivered. [VERIFY: reviewer team composition — e.g., coders and RCM specialists with X years of experience]
+                </p>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Solution page links */}
+        <Reveal delay={0.3} className="mt-10 grid gap-6 md:grid-cols-2">
+          <Link
+            href="/solutions/denial-analysis/"
+            className="group rounded-sm border border-[#14110C]/20 bg-[#F4EFE4] p-6 hover:bg-[#E8E0CF] hover:border-[#14110C] transition-colors"
+          >
+            <h3 className="font-serif text-2xl font-bold tracking-tight text-[#14110C] group-hover:text-[#B8800E]">
+              Denial analysis
+            </h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-[#2A2620]">
+              Classify denials by CARC/RARC code, group them by root cause, and prioritize the claims worth appealing by recovery value and evidence strength.
+            </p>
+          </Link>
+          <Link
+            href="/solutions/appeal-preparation/"
+            className="group rounded-sm border border-[#14110C]/20 bg-[#F4EFE4] p-6 hover:bg-[#E8E0CF] hover:border-[#14110C] transition-colors"
+          >
+            <h3 className="font-serif text-2xl font-bold tracking-tight text-[#14110C] group-hover:text-[#B8800E]">
+              Appeal preparation
+            </h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-[#2A2620]">
+              Evidence-backed appeal letters that cite the payer's own policy language, map the clinical documentation to it, and arrive ready for your review.
+            </p>
+          </Link>
+        </Reveal>
+
+        <Reveal delay={0.4} className="mt-6">
+          <CTAButton href="/how-it-works" variant="ghost" className="px-6 py-3.5 text-[14px]">
+            See the full workflow
+            <ArrowRight className="h-4 w-4" />
+          </CTAButton>
+        </Reveal>
       </div>
     </section>
   );
 }
 
 /* ----------------------------------------------------------------
-   5. THE MOAT — INK-BLACK DRAMATIC PANEL, animated constellation
+   4. BUILT FOR SPECIALTY CARE
 ---------------------------------------------------------------- */
-function Moat() {
+function SpecialtyCards() {
+  const specialties = [
+    {
+      name: "Orthopedics",
+      href: "/specialties/orthopedics/",
+      focus: "Spine injections, joint replacement, surgery, and DME denials: medical-necessity criteria, prior auth, and bundling edits, worked the way ortho bills.",
+    },
+    {
+      name: "Oncology",
+      href: "/specialties/oncology/",
+      focus: "Infusion, radiation, and drug-claim denials where every appeal is high-stakes: prior auth, step therapy, and site-of-care disputes.",
+    },
+  ];
+
   return (
-    <section
-      id="moat"
-      className="relative scroll-mt-16 overflow-hidden bg-[#14110C] px-6 py-24 sm:py-32"
-    >
-      {/* Top bleed — ink fades in from parchment (taller, more visible) */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-40"
-        style={{
-          background:
-            "linear-gradient(to bottom, #F4EFE4 0%, rgba(244,239,228,0.7) 30%, rgba(244,239,228,0.3) 60%, transparent 100%)",
-        }}
-      />
-      {/* faint grid */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, #C5F23D 1px, transparent 1px), linear-gradient(to bottom, #C5F23D 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-          maskImage:
-            "radial-gradient(ellipse 70% 70% at 50% 50%, #000 30%, transparent 75%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 70% 70% at 50% 50%, #000 30%, transparent 75%)",
-        }}
-      />
-      {/* ambient amber glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-32 top-1/4 h-80 w-80 rounded-full bg-[#E8A317]/15 blur-[120px]"
-      />
-      {/* Bottom bleed — ink fades out to parchment (taller, more visible) */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-40"
-        style={{
-          background:
-            "linear-gradient(to top, #F4EFE4 0%, rgba(244,239,228,0.7) 30%, rgba(244,239,228,0.3) 60%, transparent 100%)",
-        }}
-      />
+    <section id="specialties" className="scroll-mt-16 px-6 py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl">
+        <Reveal>
+          <Eyebrow tone="chartreuse">§ 03 — Specialties</Eyebrow>
+          <h2 className="mt-4 font-serif text-[42px] font-bold leading-[1.05] tracking-[-0.02em] text-[#14110C] sm:text-[56px]">
+            Built for specialty care
+          </h2>
+          <p className="mt-6 text-[17px] leading-relaxed text-[#2A2620] max-w-3xl">
+            Specialty practices typically handle high-dollar procedures that
+            payers scrutinize closely. Denial categories, clinical
+            documentation expectations, and prior-authorization requirements
+            vary by specialty — and by payer. Veldarion's analysis is
+            tailored to the specific denial reason and the relevant payer
+            policy for each claim.
+          </p>
+        </Reveal>
 
-      <div className="relative mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Left — copy */}
-          <div>
-            <Reveal>
-              <Eyebrow tone="chartreuse">§ 03 — The Moat</Eyebrow>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <h2 className="mt-4 font-serif text-[42px] font-bold leading-[1.05] tracking-[-0.02em] text-[#F4EFE4] sm:text-[56px]">
-                The Payer Denial <em className="font-serif italic font-medium text-[#E8A317]">Rules</em> Graph
-              </h2>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <p className="mt-6 text-[17px] leading-relaxed text-[#DDD3BD]/80">
-                Every time an appeal is won, Veldarion learns the exact semantic
-                triggers that force insurers to capitulate. The more claims we
-                process, the higher your approval rate.
+        <Reveal delay={0.1} className="mt-14 grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+          {specialties.map((s) => (
+            <Link
+              key={s.name}
+              href={s.href}
+              className="group relative rounded-sm border border-[#14110C]/20 bg-[#F4EFE4] p-8 hover:bg-[#E8E0CF] hover:border-[#14110C] transition-colors"
+            >
+              <h3 className="font-serif text-2xl font-bold tracking-tight text-[#14110C] group-hover:text-[#B8800E] transition-colors">
+                {s.name}
+              </h3>
+              <p className="mt-3 text-[14px] leading-relaxed text-[#2A2620]">
+                {s.focus}
               </p>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <p className="mt-4 text-[17px] leading-relaxed text-[#DDD3BD]/80">
-                <span className="font-semibold text-[#C5F23D]">
-                  Software is easy to copy. A trained agent network is not.
-                </span>{" "}
-                Each overturned denial becomes a permanent edge in the rules
-                graph — compounding knowledge that no payer can defuse and no
-                competitor can replicate.
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.25}>
-              <div className="mt-10 grid grid-cols-3 gap-4">
-                {[
-                  { icon: Network, label: "Win rate grows", value: "+18%" },
-                  { icon: Zap, label: "Cycle time", value: "3s" },
-                  { icon: TrendingUp, label: "Compounding edge", value: "∞" },
-                ].map((m) => (
-                  <div
-                    key={m.label}
-                    className="rounded-sm border border-[#C5F23D]/20 bg-[#2A2620]/40 p-4 text-center"
-                  >
-                    <m.icon className="mx-auto h-4 w-4 text-[#C5F23D]" />
-                    <div className="mt-2 font-serif text-2xl font-bold text-[#F4EFE4]">
-                      {m.value}
-                    </div>
-                    <div className="mt-0.5 font-mono text-[10px] uppercase tracking-wider text-[#DDD3BD]/60">
-                      {m.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-
-          {/* Right — constellation graph, in a 3D housing:
-              rises from the desk on scroll, then tilts to the
-              pointer like a holographic control surface. */}
-          <Reveal delay={0.3} className="relative">
-            <MoatGraphTilt />
-          </Reveal>
-        </div>
+            </Link>
+          ))}
+        </Reveal>
       </div>
     </section>
   );
 }
 
-/* Scroll-tilted + pointer-tilted housing for the rules graph.
-   Two composed 3D layers: an entrance rotateX driven by scroll
-   (the panel tilts up from the desk as it enters) wrapped around
-   a pointer tilt (holographic control-surface feel). */
-function MoatGraphTilt() {
-  const reduce = useReducedMotion() ?? false;
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "start 35%"],
-  });
-  const rotateX = useTransform(scrollYProgress, [0, 1], [18, 0]);
-  if (reduce) return <ConstellationGraph />;
+/* ----------------------------------------------------------------
+   5. EVIDENCE AND REVIEW STANDARDS
+---------------------------------------------------------------- */
+function EvidenceStandards() {
   return (
-    <motion.div
-      ref={ref}
-      className="relative"
-      style={{ rotateX, transformPerspective: 1300 }}
-    >
-      <Tilt3D max={4.5} perspective={1300}>
-        <ConstellationGraph />
-      </Tilt3D>
-    </motion.div>
-  );
-}
+    <section className="scroll-mt-16 px-6 py-20 sm:py-28 bg-[#F4EFE4]">
+      <div className="mx-auto max-w-7xl">
+        <Reveal>
+          <Eyebrow tone="amber">§ 04 — Standards</Eyebrow>
+          <h2 className="mt-4 font-serif text-[42px] font-bold leading-[1.05] tracking-[-0.02em] text-[#14110C] sm:text-[56px]">
+            Evidence and review standards
+          </h2>
+        </Reveal>
 
-function ConstellationGraph() {
-  const cx = 50;
-  const cy = 50;
-  /* Round to 3 decimals: Node and the browser can disagree on the
-     16th digit of Math.cos/sin, which breaks hydration. At this
-     viewBox scale 0.001 units is invisible. */
-  const R3 = (n: number) => Math.round(n * 1000) / 1000;
-  const polar = (angleDeg: number, r: number) => {
-    const rad = (angleDeg * Math.PI) / 180;
-    return { x: R3(cx + r * Math.cos(rad)), y: R3(cy + r * Math.sin(rad)) };
-  };
-
-  /* Inner ring — the 6 payers we appeal against */
-  const payers = [
-    { id: "cigna", angle: -90, label: "Cigna" },
-    { id: "uhc", angle: -30, label: "UHC" },
-    { id: "aetna", angle: 30, label: "Aetna" },
-    { id: "bcbs", angle: 90, label: "BCBS" },
-    { id: "humana", angle: 150, label: "Humana" },
-    { id: "cvs", angle: 210, label: "CVS" },
-  ].map((p) => ({ ...p, ...polar(p.angle, 26) }));
-
-  /* Outer ring — policy sources we cite */
-  const policies = [
-    { id: "lcd", angle: -60, label: "LCD" },
-    { id: "ncd", angle: 0, label: "NCD" },
-    { id: "policy", angle: 60, label: "Policy" },
-    { id: "clinical", angle: 120, label: "Clinical" },
-    { id: "cms", angle: 180, label: "CMS" },
-    { id: "statute", angle: 240, label: "Statute" },
-  ].map((p) => ({ ...p, ...polar(p.angle, 43) }));
-
-  /* Curved Bézier from center to a node, control point offset perpendicular */
-  const curvedFromCenter = (x: number, y: number, offset: number) => {
-    const mx = (cx + x) / 2;
-    const my = (cy + y) / 2;
-    const dx = x - cx;
-    const dy = y - cy;
-    const len = Math.sqrt(dx * dx + dy * dy) || 1;
-    const px = mx + (-dy / len) * offset;
-    const py = my + (dx / len) * offset;
-    return `M ${cx} ${cy} Q ${R3(px)} ${R3(py)} ${x} ${y}`;
-  };
-
-  /* Curved arc between two ring nodes */
-  const arcBetween = (
-    x1: number,
-    y1: number,
-    x2: number,
-    y2: number,
-    offset: number,
-  ) => {
-    const mx = (x1 + x2) / 2;
-    const my = (y1 + y2) / 2;
-    const dx = x2 - x1;
-    const dy = y2 - y1;
-    const len = Math.sqrt(dx * dx + dy * dy) || 1;
-    const px = mx + (-dy / len) * offset;
-    const py = my + (dx / len) * offset;
-    return `M ${x1} ${y1} Q ${R3(px)} ${R3(py)} ${x2} ${y2}`;
-  };
-
-  const reduce = useReducedMotion() ?? false;
-
-  return (
-    <div className="relative aspect-square w-full overflow-hidden rounded-sm border border-[#C5F23D]/15 bg-[#0A0907]">
-      {/* Layered ambient glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 55% 50% at 50% 50%, rgba(197,242,61,0.10), transparent 70%), radial-gradient(ellipse 80% 70% at 50% 50%, rgba(232,163,23,0.06), transparent 75%)",
-        }}
-      />
-
-      <svg
-        viewBox="0 0 100 100"
-        className="absolute inset-0 h-full w-full"
-        preserveAspectRatio="xMidYMid meet"
-      >
-        <defs>
-          <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="rgba(232,163,23,0.55)" />
-            <stop offset="60%" stopColor="rgba(232,163,23,0.12)" />
-            <stop offset="100%" stopColor="rgba(232,163,23,0)" />
-          </radialGradient>
-          <radialGradient id="coreFill" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#F4D88A" />
-            <stop offset="55%" stopColor="#E8A317" />
-            <stop offset="100%" stopColor="#B8800E" />
-          </radialGradient>
-          <linearGradient id="edgeInbound" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(197,242,61,0)" />
-            <stop offset="50%" stopColor="rgba(197,242,61,0.55)" />
-            <stop offset="100%" stopColor="rgba(197,242,61,0.15)" />
-          </linearGradient>
-        </defs>
-
-        {/* Faint concentric guide rings */}
-        <circle
-          cx={50}
-          cy={50}
-          r={26}
-          fill="none"
-          stroke="rgba(197,242,61,0.07)"
-          strokeWidth={0.2}
-          strokeDasharray="0.6 1.2"
-        />
-        <circle
-          cx={50}
-          cy={50}
-          r={43}
-          fill="none"
-          stroke="rgba(197,242,61,0.05)"
-          strokeWidth={0.2}
-          strokeDasharray="0.6 1.2"
-        />
-
-        {/* Center core radial glow */}
-        <circle cx={50} cy={50} r={20} fill="url(#coreGlow)" />
-
-        {/* Outer ring: policy → nearest payer (thin dotted arcs) */}
-        {policies.map((p, i) => {
-          const payer = payers[i % payers.length];
-          return (
-            <motion.path
-              key={`outer-edge-${i}`}
-              d={arcBetween(payer.x, payer.y, p.x, p.y, 5)}
-              stroke="rgba(221,211,189,0.22)"
-              strokeWidth={0.22}
-              fill="none"
-              strokeDasharray="0.7 0.7"
-              initial={{ pathLength: 0, opacity: 0 }}
-              whileInView={{ pathLength: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 1,
-                delay: 0.5 + i * 0.07,
-                ease: "easeOut",
-              }}
-            />
-          );
-        })}
-
-        {/* Inner ring: payer → center (curved Bézier, gradient stroke) */}
-        {payers.map((p, i) => (
-          <motion.path
-            key={`inner-edge-${i}`}
-            d={curvedFromCenter(p.x, p.y, i % 2 === 0 ? 2.5 : -2.5)}
-            stroke="rgba(197,242,61,0.32)"
-            strokeWidth={0.4}
-            fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 1.1,
-              delay: 0.2 + i * 0.09,
-              ease: "easeOut",
-            }}
-          />
-        ))}
-
-        {/* Inbound data pulses: payer → center (chartreuse — claims arriving) */}
-        {!reduce &&
-          payers.map((p, i) => (
-            <motion.circle
-              key={`inbound-${i}`}
-              r={0.55}
-              fill="#C5F23D"
-              initial={{ cx: p.x, cy: p.y, opacity: 0 }}
-              animate={{ cx: [p.x, 50], cy: [p.y, 50], opacity: [0, 1, 0] }}
-              transition={{
-                duration: 2.8,
-                delay: 1.2 + i * 0.35,
-                repeat: Infinity,
-                repeatDelay: 2.2,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-
-        {/* Outbound win signals: center → payer (amber — appeals won) */}
-        {!reduce &&
-          payers.map((p, i) => (
-            <motion.circle
-              key={`outbound-${i}`}
-              r={0.85}
-              fill="#E8A317"
-              initial={{ cx: 50, cy: 50, opacity: 0 }}
-              animate={{ cx: [50, p.x], cy: [50, p.y], opacity: [0, 1, 0] }}
-              transition={{
-                duration: 2.2,
-                delay: 2.0 + i * 0.45,
-                repeat: Infinity,
-                repeatDelay: 3,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-
-        {/* Outer ring: policy nodes */}
-        {policies.map((p, i) => (
-          <motion.g
-            key={p.id}
-            initial={{ opacity: 0, scale: 0.4 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0.5,
-              delay: 0.6 + i * 0.07,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
-            <circle
-              cx={p.x}
-              cy={p.y}
-              r={2.1}
-              fill="rgba(10,9,7,0.95)"
-              stroke="rgba(221,211,189,0.5)"
-              strokeWidth={0.25}
-            />
-            {!reduce && (
-              <motion.circle
-                cx={p.x}
-                cy={p.y}
-                r={2.1}
-                fill="rgba(221,211,189,0.18)"
-                animate={{ opacity: [0.18, 0.42, 0.18] }}
-                transition={{
-                  duration: 2.5,
-                  delay: i * 0.3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-            )}
-            <text
-              x={p.x}
-              y={p.y - 4.2}
-              textAnchor="middle"
-              fontSize={2.6}
-              fontWeight={500}
-              fill="#DDD3BD"
-              style={{ fontFamily: "var(--font-inter)" }}
-            >
-              {p.label}
-            </text>
-          </motion.g>
-        ))}
-
-        {/* Inner ring: payer nodes */}
-        {payers.map((p, i) => (
-          <motion.g
-            key={p.id}
-            initial={{ opacity: 0, scale: 0.4 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0.5,
-              delay: 0.15 + i * 0.08,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
-            {/* outer halo */}
-            <circle
-              cx={p.x}
-              cy={p.y}
-              r={4.8}
-              fill="none"
-              stroke="rgba(197,242,61,0.18)"
-              strokeWidth={0.2}
-            />
-            {/* payer node body */}
-            <circle
-              cx={p.x}
-              cy={p.y}
-              r={3.4}
-              fill="rgba(10,9,7,0.95)"
-              stroke="rgba(197,242,61,0.55)"
-              strokeWidth={0.4}
-            />
-            <text
-              x={p.x}
-              y={p.y + 0.9}
-              textAnchor="middle"
-              fontSize={2.5}
-              fontWeight={600}
-              fill="#F4EFE4"
-              style={{ fontFamily: "var(--font-inter)" }}
-            >
-              {p.label}
-            </text>
-          </motion.g>
-        ))}
-
-        {/* Center: Veldarion core */}
-        <motion.g
-          initial={{ opacity: 0, scale: 0.3 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0.7,
-            delay: 0.05,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-        >
-          {/* Expanding pulse rings emanating from the core */}
-          {!reduce &&
-            [0, 1, 2].map((i) => (
-              <motion.circle
-                key={`pulse-ring-${i}`}
-                cx={50}
-                cy={50}
-                fill="none"
-                stroke="rgba(232,163,23,0.45)"
-                strokeWidth={0.3}
-                initial={{ r: 6, opacity: 0.5 }}
-                animate={{
-                  r: [6, 18, 6],
-                  opacity: [0.5, 0, 0.5],
-                }}
-                transition={{
-                  duration: 3.2,
-                  delay: i * 1.05,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-            ))}
-
-          {/* Core fill */}
-          <circle cx={50} cy={50} r={6.5} fill="url(#coreFill)" />
-          <circle
-            cx={50}
-            cy={50}
-            r={6.5}
-            fill="none"
-            stroke="#F4EFE4"
-            strokeWidth={0.45}
-          />
-
-          {/* Mini V mark inside the core (brand identity) */}
-          <path
-            d="M46.2 47.5 L50 53.5 L53.8 47.5 L52.2 47.5 L50 50.8 L47.8 47.5 Z"
-            fill="#14110C"
-          />
-
-          {/* Labels below the core */}
-          <text
-            x={50}
-            y={62.5}
-            textAnchor="middle"
-            fontSize={3.2}
-            fontWeight={700}
-            fill="#F4EFE4"
-            style={{ fontFamily: "var(--font-inter)" }}
-          >
-            VELDARION
-          </text>
-          <text
-            x={50}
-            y={66.4}
-            textAnchor="middle"
-            fontSize={2}
-            fontWeight={500}
-            fill="#A8D11C"
-            style={{ fontFamily: "var(--font-mono)" }}
-          >
-            CORE
-          </text>
-        </motion.g>
-      </svg>
-
-      {/* HUD overlay — telemetry */}
-      <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-3 font-mono text-[10px] text-[#DDD3BD]/45">
-        <div className="flex items-center justify-between">
-          <span className="flex items-center gap-1.5">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#C5F23D] opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#C5F23D]" />
-            </span>
-            rules_graph.live
-          </span>
-          <span>cycle 4,182</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <span>12 nodes online</span>
-          <span>v3.2.0</span>
-        </div>
+        <Reveal delay={0.1} className="mt-10 space-y-4 text-[15px] leading-relaxed text-[#2A2620] max-w-3xl">
+          <li className="flex items-start gap-3">
+            <span className="mt-0.5 text-[#C5F23D]">✓</span>
+            Every appeal cites the payer policy, LCD, or NCD it relies on — quoted, with section references.
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-0.5 text-[#C5F23D]">✓</span>
+            Every letter passes human review before delivery.
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-0.5 text-[#C5F23D]">✓</span>
+            No patient data is used in marketing materials or demos; examples are synthetic and labeled.
+          </li>
+          <li className="flex items-start gap-3">
+            <span className="mt-0.5 text-[#C5F23D]">✓</span>
+            <Link href="/security/" className="underline decoration-[#14110C]/40 underline-offset-2 hover:decoration-[#14110C] text-[#14110C]">
+              Security & compliance
+            </Link>{" "}
+            — publish this link only when /security/ content is verified.
+          </li>
+        </Reveal>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -1405,24 +838,22 @@ function ConstellationGraph() {
 function Pricing() {
   const features = [
     "Unlimited appeal generations",
-    "EHR integration (Epic, Athena, eClinicalWorks)",
-    "Real-time ROI & win-rate dashboard",
-    "White-glove onboarding with clinical SMEs",
-    "SOC 2 Type II / HIPAA-aligned delivery",
     "Cited, audit-ready appeal letters",
+    "Human review of every appeal draft",
+    "10% contingency — $0 upfront",
   ];
   return (
     <section id="pricing" className="scroll-mt-16 px-6 py-20 sm:py-28">
       <div className="mx-auto max-w-3xl">
         <Reveal>
           <div className="text-center">
-            <Eyebrow tone="amber">§ 04 — Pricing</Eyebrow>
+            <Eyebrow tone="amber">§ 05 — Pricing</Eyebrow>
             <h2 className="mt-4 font-serif text-[42px] font-bold leading-[1.05] tracking-[-0.02em] text-[#14110C] sm:text-[56px]">
-              Pure <em className="font-serif italic font-medium text-[#B8800E]">Found</em> Money.
+              Success-based pricing: 10% of recovered revenue
             </h2>
             <p className="mt-4 text-[17px] leading-relaxed text-[#2A2620]">
-              No seats, no tiers, no SaaS tax. We align incentives by getting
-              paid only when you do.
+              No seats, no tiers, no SaaS tax. You pay only when revenue is
+              recovered.
             </p>
           </div>
         </Reveal>
@@ -1459,11 +890,9 @@ function Pricing() {
                 of recovered revenue
               </p>
               <p className="mt-5 text-[15px] leading-relaxed text-[#2A2620]">
-                $0 upfront. $0 monthly SaaS fees. If we don&apos;t recover your
-                denied claims,{" "}
-                <span className="font-semibold text-[#14110C]">
-                  you don&apos;t pay us a dime.
-                </span>
+                $0 upfront. $0 monthly SaaS fees. If an appeal doesn&apos;t
+                recover money, you don&apos;t pay for it. [Legal review required
+                for absolute wording — ledger item L-19.]
               </p>
             </div>
 
@@ -1481,12 +910,13 @@ function Pricing() {
             </ul>
 
             <div className="mt-8">
-              <CTAButton href="#contact" className="w-full py-4 text-[15px]">
-                Contact Us to Begin
+              <CTAButton href="/pricing/" className="w-full py-4 text-[15px]">
+                Full pricing details
                 <ArrowRight className="h-4 w-4" />
               </CTAButton>
               <p className="mt-3 text-center font-mono text-[11px] text-[#8A8170]">
-                ↳ Send us a denied claim. We handle the appeal end-to-end and file it for you.
+                ↳ Send us a denied claim. We review and prepare the appeal. You
+                approve before anything is filed.
               </p>
             </div>
           </div>
@@ -1498,54 +928,8 @@ function Pricing() {
 }
 
 /* ----------------------------------------------------------------
-   7. FINAL CTA — full-bleed chartreuse, ink button + contact card
+   7. FINAL CTA — chartreuse, simple CTA
 ---------------------------------------------------------------- */
-
-/* Copy-to-clipboard email button — works even when the visitor has no
-   mail client configured (webmail users), where mailto: does nothing. */
-function CopyEmailButton({ email }: { email: string }) {
-  const [copied, setCopied] = useState(false);
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(email);
-    } catch {
-      // Clipboard API unavailable (older browsers) — legacy fallback
-      const ta = document.createElement("textarea");
-      ta.value = email;
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
-      document.body.appendChild(ta);
-      ta.select();
-      try {
-        document.execCommand("copy");
-      } catch {
-        /* noop */
-      }
-      document.body.removeChild(ta);
-    }
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 2000);
-  };
-  return (
-    <button
-      type="button"
-      onClick={copy}
-      className={`inline-flex shrink-0 items-center justify-center gap-2 rounded-full border-2 px-5 py-2.5 font-mono text-[12px] font-bold tracking-tight transition-all duration-200 ${
-        copied
-          ? "border-[#14110C] bg-[#14110C] text-[#C5F23D]"
-          : "border-[#14110C]/30 bg-transparent text-[#14110C] hover:border-[#14110C] hover:bg-[#14110C]/5"
-      }`}
-    >
-      {copied ? (
-        <Check className="h-3.5 w-3.5" strokeWidth={3} />
-      ) : (
-        <Copy className="h-3.5 w-3.5" />
-      )}
-      {copied ? "Copied" : "Copy email"}
-    </button>
-  );
-}
-
 function FinalCTA() {
   return (
     <section
@@ -1569,38 +953,27 @@ function FinalCTA() {
 
       <div className="relative mx-auto max-w-4xl text-center">
         <Reveal>
-          <Eyebrow tone="ink">§ 05 — Contact</Eyebrow>
+          <Eyebrow tone="ink">§ 06 — Contact</Eyebrow>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="mx-auto mt-4 max-w-3xl font-serif text-[48px] font-bold leading-[0.98] tracking-[-0.025em] text-[#14110C] sm:text-[80px] sm:leading-[0.95]">
-            <em className="font-serif italic font-medium">Stop</em> letting AI deny your claims.
+            Stop writing off winnable denials.
           </h2>
         </Reveal>
         <Reveal delay={0.2}>
           <p className="mx-auto mt-6 max-w-xl text-[17px] leading-relaxed text-[#14110C]/80">
-            Send us your denied claims. Our agents read the charts, find the
-            policy clauses, write the appeals, and file them on your behalf.
-            You pay only when revenue is recovered.
+            Send one denied claim. See the analysis and the appeal workup before you commit to anything.
           </p>
         </Reveal>
         <Reveal delay={0.3}>
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <CTAButton
-              href={CONTACT_MAILTO}
-              variant="ink"
-              className="w-full px-7 py-4 text-[15px] sm:w-auto"
-            >
-              Contact Us
-              <ArrowRight className="h-4 w-4" />
-            </CTAButton>
-            <CTAButton
-              href="#solution"
-              variant="ghost"
-              className="w-full border-[#14110C]/30 px-7 py-4 text-[15px] sm:w-auto"
-            >
-              See how it works
-            </CTAButton>
-          </div>
+          <CTAButton
+            href="/contact"
+            variant="ink"
+            className="w-full px-7 py-4 text-[15px] sm:w-auto"
+          >
+            Submit a denied claim for review
+            <ArrowRight className="h-4 w-4" />
+          </CTAButton>
         </Reveal>
         <Reveal delay={0.35}>
           <div className="mx-auto mt-8 flex w-full max-w-md flex-col gap-3 rounded-2xl border-2 border-[#14110C]/15 bg-[#F4EFE4]/70 p-4 backdrop-blur-sm sm:flex-row sm:items-center sm:gap-4">
@@ -1609,27 +982,12 @@ function FinalCTA() {
                 Email us directly
               </p>
               <a
-                href={CONTACT_MAILTO}
+                href={DIRECT_MAILTO}
                 className="mt-1 block truncate font-mono text-[14px] font-bold text-[#14110C] underline decoration-[#14110C]/40 underline-offset-4 transition-colors hover:decoration-[#14110C]"
               >
-                {CONTACT_EMAIL}
+                {DIRECT_EMAIL}
               </a>
             </div>
-            <CopyEmailButton email={CONTACT_EMAIL} />
-          </div>
-        </Reveal>
-        <Reveal delay={0.4}>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-[11px] text-[#14110C]/70">
-            <span className="flex items-center gap-1.5">
-              <Check className="h-3 w-3" strokeWidth={3} /> HIPAA-aligned
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Check className="h-3 w-3" strokeWidth={3} /> SOC 2 Type II
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Check className="h-3 w-3" strokeWidth={3} /> No long-term
-              contract
-            </span>
           </div>
         </Reveal>
       </div>
@@ -1638,37 +996,8 @@ function FinalCTA() {
 }
 
 /* ----------------------------------------------------------------
-   8. FOOTER
----------------------------------------------------------------- */
-function Footer() {
-  return (
-    <footer className="border-t border-[#14110C]/15 bg-[#F4EFE4] px-6 py-10">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
-        <div>
-          <VeldarionLogo tone="ink" />
-        </div>
-        <p className="text-center font-mono text-[11px] text-[#8A8170]">
-          © 2024 Veldarion. All rights reserved.
-        </p>
-        <nav className="flex items-center gap-5 font-mono text-[11px] text-[#5C5447]">
-          <a href="#" className="transition-colors hover:text-[#14110C]">
-            Privacy
-          </a>
-          <a href="#" className="transition-colors hover:text-[#14110C]">
-            Terms
-          </a>
-          <a href="#" className="transition-colors hover:text-[#14110C]">
-            Security
-          </a>
-        </nav>
-      </div>
-    </footer>
-  );
-}
-
-/* ----------------------------------------------------------------
    Page
----------------------------------------------------------------- */
+----------------------------------------------------------------- */
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-[#F4EFE4]">
@@ -1678,7 +1007,8 @@ export default function Home() {
         <Problem />
         <Rule />
         <Solution />
-        <Moat />
+        <SpecialtyCards />
+        <EvidenceStandards />
         <Pricing />
         <FinalCTA />
       </main>

@@ -84,7 +84,7 @@ for (const [label, viewport] of [
   );
   check(
     `${label}: email present`,
-    (await page.content()).includes("hello@veldarion.com")
+    (await page.content()).includes("shivansh@veldarion.com")
   );
   check(`${label}: fonts embedded`, (await page.content()).includes("font"));
 

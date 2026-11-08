@@ -1,0 +1,544 @@
+import { Metadata } from "next";
+import { Navbar } from "@/components/veldarion/nav-footer";
+import { Footer } from "@/components/veldarion/nav-footer";
+import { PageHeading, Rule, Eyebrow, CTAButton } from "@/components/veldarion/homepage-elements";
+import { BlogLayout } from "@/components/veldarion/blog-layout";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Terms of Service — Veldarion (Draft — Legal Review Required)",
+  description:
+    "Veldarion Terms of Service: BAA-gated PHI processing, review-before-submit model, Order Form pricing, liability cap with carve-outs. Draft requires qualified legal review.",
+  openGraph: {
+    title: "Terms of Service — Veldarion",
+    description: "Terms governing use of Veldarion's denied-claims appeal service including BAA requirements and AI output risks.",
+    type: "website",
+  },
+  robots: {
+    index: false,
+    follow: false,
+  },
+  alternates: {
+    canonical: "https://veldarion.com/terms",
+  },
+};
+
+export default function TermsPage() {
+  const breadcrumbs = [
+    { label: "Home", href: "/" },
+    { label: "Terms of Service", href: "/terms" },
+  ];
+
+  return (
+    <div className="relative min-h-screen bg-[#F4EFE4]">
+      <Navbar />
+      <main>
+        <BlogLayout
+          title="Terms of Service"
+          intro="Last updated: [LAST UPDATED — TO CONFIRM]. These terms govern your use of Veldarion's denied-claims appeal-preparation service."
+          breadcrumbs={breadcrumbs}
+        >
+          <div className="mb-4 rounded-sm border-2 border-[#7A2E2E] bg-[#7A2E2E]/5 p-4 text-[#7A2E2E]">
+            <Eyebrow tone="oxblood">Draft — legal review required</Eyebrow>
+            <p className="mt-1 text-[12px] font-medium">
+              These terms of service are a draft. They have not been reviewed
+              by qualified counsel and do not constitute a binding contract or
+              a guarantee of legal enforceability.
+            </p>
+          </div>
+
+          <PageHeading
+            eyebrow="Terms"
+            title="Terms of Service"
+            intro="Last updated: [LAST UPDATED — TO CONFIRM]. These terms govern your use of Veldarion's denied-claims appeal-preparation service."
+          />
+
+          {/* 1. Agreement and acceptance */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              1. Agreement and acceptance
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-6">
+              By creating an account, accessing the Platform, or using the Services, you agree to these Terms. If you do not agree, do not use the Services. Your use is also subject to our Privacy Policy and Disclaimer, which are incorporated by reference. Where you have signed a Master Services Agreement, Business Associate Agreement, Data Processing Agreement, or Order Form with us, those documents govern to the extent of any conflict, as provided in Section 37.
+            </p>
+          </div>
+
+          {/* 2. Company identity */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              2. Company identity
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              The provider of the Services is <strong>Ram Bharosa Saxena</strong>, trading as Veldarion, with its registered office at <strong>[REGISTERED BUSINESS ADDRESS — TO CONFIRM]</strong> (legal contact: <strong>shivansh@veldarion.com</strong>). Veldarion is a technology provider incorporated/registered in India and serves customers principally in the United States. Veldarion is not a healthcare provider, insurer, law firm, or collection agency.
+            </p>
+          </div>
+
+          {/* 3. Definitions */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              3. Definitions
+            </h2>
+            <ul className="space-y-3 text-[15px] leading-relaxed text-[#2A2620] pl-6 list-disc list-inside">
+              <li><strong>"Platform"</strong> means the Veldarion web application and related systems offered at or through https://veldarion.com.</li>
+              <li><strong>"Services"</strong> means the appeal-preparation and analysis services described in Section 7, as specified in an applicable Order Form.</li>
+              <li><strong>"Customer Documents"</strong> means all documents and data a Customer or its Authorized Users upload or provide to the Platform, including denial letters, Explanation of Benefits documents, Electronic Remittance Advice (ERA/835) data, clinical notes, patient records, and payer policy documents.</li>
+              <li><strong>"Generated Output"</strong> means documents, analyses, drafts, and reports generated by the Platform from Customer Documents, including appeal drafts and evidence reports.</li>
+              <li><strong>"Authorized Users"</strong> means individuals authorized by the Customer to use the Services under its account, being the Customer's employees, contractors, or agents with a legitimate business need.</li>
+              <li><strong>"PHI"</strong> means protected health information as defined by HIPAA (45 CFR 160.103).</li>
+              <li><strong>"BAA," "DPA," "MSA," and "Order Form"</strong> mean, respectively, a Business Associate Agreement, Data Processing Agreement, Master Services Agreement, and ordering document separately executed between Veldarion and a Customer.</li>
+              <li><strong>"HIPAA"</strong> means the U.S. Health Insurance Portability and Accountability Act of 1996, as amended by HITECH, and its implementing regulations.</li>
+              <li><strong>"Confidential Information"</strong> means non-public information disclosed by one party to the other and marked or reasonably understood as confidential, including Customer Documents, Generated Output, pricing, security information, and business information.</li>
+            </ul>
+          </div>
+
+          {/* 4. Eligibility and authorized users */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              4. Eligibility and authorized users
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              You may use the Services only if: (a) you are at least 18 years old; (b) you are authorized to act for the Customer organization; and (c) the Customer is a healthcare organization, or a vendor serving one, using the Services for business purposes. The Customer is responsible for its Authorized Users' compliance with these Terms, for the accuracy of user designations, and for promptly removing access for personnel who leave or change roles.
+            </p>
+          </div>
+
+          {/* 5. Business and professional use */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              5. Business and professional use
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              The Services are offered for business and professional use by healthcare organizations and their administrative personnel only. <strong className="text-[#14110C]">The Services are not offered to patients or consumers</strong>, and nothing in these Terms creates any agreement between Veldarion and any patient. Customer must not represent to any patient that Veldarion is the patient's agent, provider, insurer, or legal representative.
+            </p>
+          </div>
+
+          {/* 6. Account creation */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              6. Account creation and access credentials
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Customer is responsible for the accuracy of account information, for safeguarding credentials, for enforcing strong access practices among Authorized Users (including multi-factor authentication where offered), and for all activity under its account. Notify us promptly at <strong>shivansh@veldarion.com</strong> of any suspected unauthorized use. We may require identity verification and may refuse or cancel accounts where verification fails or where these Terms are breached.
+            </p>
+          </div>
+
+          {/* 7. Description of services */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              7. Description of services
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-6">
+              Subject to these Terms and any Order Form, the Services use artificial intelligence and automated workflows to: (a) process Customer Documents; (b) extract claim, denial, coding, and clinical information; (c) analyze denial reasons against payer policies and coverage requirements; (d) identify potentially relevant supporting evidence within the Customer Documents; and (e) prepare structured appeal drafts and supporting evidence reports for review by the Customer's Authorized Users.
+            </p>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-6">
+              The Services are <strong>administrative and technical assistance</strong>. The Services do not include: making medical or clinical judgments; determining coverage or payment; representing the Customer or any patient before any payer, agency, or tribunal; or submitting appeals to payers. Unless Veldarion and the Customer expressly agree otherwise in a signed writing (for example, an appointed-representative arrangement under 42 CFR 405.910), <strong>Generated Outputs are delivered to the Customer for its own review, approval, and submission.</strong>
+            </p>
+          </div>
+
+          {/* 8. Customer responsibilities */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              8. Customer responsibilities
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Customer shall: (a) use the Services with qualified personnel; (b) review and approve all Generated Output before any use or submission, verifying factual accuracy, completeness, codes, citations, and policy references; (c) verify and meet all appeal deadlines, forum requirements, and procedural rules; (d) make and keep records of its submissions; (e) maintain its own compliance with payer contracts, healthcare program requirements, and applicable law; (f) protect account credentials; and (g) use the Services consistently with all applicable laws, including patient-authorization and privacy requirements applicable to the documents it uploads.
+            </p>
+          </div>
+
+          {/* 9. Authority to upload */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              9. Authority to upload and process information
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              By uploading Customer Documents, the Customer represents and warrants that: (a) it owns or controls the documents, or otherwise has the lawful right to provide them to Veldarion for the Services; (b) it has obtained all patient authorizations, consents, assignments of benefits, and notices required by law and by its payer contracts for the disclosure and processing of those documents (including their transmission to India and to subprocessors) for these purposes; (c) the documents do not contain substance use disorder records subject to 42 CFR Part 2 unless the Customer has confirmed, and informs us in writing, that the additional consent requirements for such records are satisfied; and (d) it will not upload information it is prohibited by law from sharing. <strong className="text-[#14110C]">Customer is solely responsible for establishing and evidencing its authority over patient information before uploading it.</strong>
+            </p>
+          </div>
+
+          {/* 10. Patient information and PHI */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              10. Patient information and PHI
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Customer Documents will often contain PHI. PHI may be processed by Veldarion only in accordance with a BAA and applicable law. Except as the BAA expressly permits, Veldarion will not use or disclose PHI, will not sell PHI, and will not use PHI to train or fine-tune models for its own purposes. Requests from patients regarding their information will be referred to the Customer, and Veldarion will assist the Customer as the BAA requires.
+            </p>
+          </div>
+
+          {/* 11. HIPAA and BAA requirements */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              11. HIPAA and Business Associate Agreement requirements
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              <strong className="text-[#14110C]">A separately executed BAA is required before any PHI may be uploaded or processed.</strong> Accepting these Terms does not create a BAA and does not authorize PHI processing. Customer must not upload PHI until Veldarion confirms in writing (including through account configuration) that an executed BAA is in force. If Customer uploads PHI without an executed BAA, Customer breaches these Terms and assumes responsibility for the resulting disclosure. A BAA template is available from <strong>shivansh@veldarion.com</strong>; the executed BAA governs PHI handling to the extent of any conflict with these Terms.
+            </p>
+          </div>
+
+          {/* 12. Acceptable use */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              12. Acceptable use
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Customer shall use the Services only for lawful business purposes, in accordance with these Terms, the BAA/DPA where applicable, and applicable law, and shall not interfere with the Platform's operation or security.
+            </p>
+          </div>
+
+          {/* 13. Prohibited activities */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              13. Prohibited activities
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-4">
+              Customer and its Authorized Users shall not:
+            </p>
+            <ol className="space-y-3 text-[15px] leading-relaxed text-[#2A2620] mb-6 pl-6 list-decimal list-inside">
+              <li>upload PHI where no executed BAA is in force;</li>
+              <li>upload, or use the Services to create or submit, information known to be false or misleading, or assert facts, symptoms, findings, or medical necessity not supported by the Customer's records;</li>
+              <li>use the Services to engage in fraud, waste, or abuse directed at any healthcare program, payer, or patient;</li>
+              <li>access, or attempt to access, another customer's data or non-public areas of the Platform;</li>
+              <li>scrape, reverse engineer, decompile, or create derivative works of the Platform except to the extent such restriction is prohibited by applicable law;</li>
+              <li>share credentials or permit use by unauthorized persons;</li>
+              <li>resell or provide the Services to third parties as a service bureau without our written consent;</li>
+              <li>upload malicious code or overload or disrupt the Platform; or</li>
+              <li>use the Services in violation of export controls, sanctions, or any applicable law.</li>
+            </ol>
+          </div>
+
+          {/* 14. AI-generated outputs */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              14. AI-generated outputs
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Generated Output is produced by artificial intelligence and may contain errors, omissions, outdated references, unsupported conclusions, or fabricated citations. Generated Output is not professional advice of any kind. These risks, and the corresponding review obligations, are described in the Disclaimer, which is incorporated into these Terms.
+            </p>
+          </div>
+
+          {/* 15. Human review and approval requirements */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              15. Human review and approval requirements
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              <strong className="text-[#14110C]">Veldarion does not approve, sign, certify, or submit appeals.</strong> Every Generated Output intended for use with a payer must first be reviewed and approved by the Customer's qualified personnel. The Customer's decision to submit, and the content and timing of any submission, are the Customer's alone. If Customer and Veldarion later agree in a signed writing that Veldarion will transmit approved materials to a payer as the Customer's administrative agent, the transmission will be governed by that separate agreement, and the review-and-approval requirement in this Section will continue to apply to all transmitted content.
+            </p>
+          </div>
+
+          {/* 16. No guarantee of outcomes */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              16. No guarantee of outcomes
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Veldarion does not guarantee approval of any appeal, payment or reversal of any claim, any recovery amount or percentage, payer acceptance of documentation, preservation of appeal rights, or any turnaround time unless expressly committed in a signed Order Form or other agreement. Coverage and payment decisions rest solely with payers and independent reviewers.
+            </p>
+          </div>
+
+          {/* 17. Service availability and maintenance */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              17. Service availability and maintenance
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              We aim for high availability but do not promise uninterrupted service. We may modify, suspend, or discontinue any part of the Services (including for maintenance, security, or capacity reasons) except as an Order Form may provide. We are not liable for unavailability to the extent caused by events beyond our reasonable control (Section 40). Specific availability commitments, if any, appear in an Order Form.
+            </p>
+          </div>
+
+          {/* 18. Third-party providers */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              18. Third-party providers and integrations
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              The Services rely on third-party providers, including AI processing, hosting, storage, email, and related vendors (<strong>"Subprocessors"</strong>). We engage Subprocessors under written agreements imposing data-protection obligations no less protective than those we owe the Customer (including HIPAA obligations where PHI is involved). We will notify affected Customers before authorizing a new Subprocessor with access to PHI and will consider reasonable objections. Details are in our Privacy Policy and, for PHI, Exhibit 3 of the BAA and the current Subprocessor List.
+            </p>
+          </div>
+
+          {/* 19. Intellectual property */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              19. Intellectual property rights
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Veldarion and its licensors own all right, title, and interest in the Platform, including software, models, prompts, workflows, interfaces, documentation, trademarks, and know-how, subject to Customer's rights in its own data under Sections 20–21. Except for the rights expressly granted in these Terms, no license or other rights in the Platform are granted, whether by implication, estoppel, or otherwise.
+            </p>
+          </div>
+
+          {/* 20. Ownership of customer data */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              20. Ownership of customer data
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Customer retains all right, title, and interest in and to Customer Documents and the data within them. Veldarion acquires no ownership of Customer Documents and processes them only to provide the Services, as instructed by the Customer and permitted by the BAA/DPA. Upon written direction or termination, Customer Documents are handled in accordance with Section 23 and the BAA/DPA.
+            </p>
+          </div>
+
+          {/* 21. Ownership and licensing of generated outputs */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              21. Ownership and licensing of generated outputs
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Subject to payment of applicable fees, Customer owns the Generated Output created for it, to the extent it incorporates or derives from Customer Documents and does not consist of Veldarion's pre-existing platform materials, templates, or workflows (in which case Customer receives a perpetual, worldwide, non-exclusive license to use, edit, store, and submit those materials for its business purposes). Customer may edit, adapt, and submit Generated Output at its responsibility and risk, subject to the review obligations of Section 15. Veldarion may host, transmit, and display Generated Output solely to provide the Services. Veldarion does not use Customer Documents or Generated Output to develop or improve its models or services, except with the Customer's prior written consent for clearly identified, aggregated or de-identified purposes.
+            </p>
+          </div>
+
+          {/* 22. Confidentiality */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              22. Confidentiality
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Each party will protect the other's Confidential Information with at least the same care it uses for its own (and no less than reasonable care), use it only for purposes of the Services, and disclose it only to personnel, advisors, and Subprocessors who need it and are bound by comparable obligations. These obligations do not apply to information that is or becomes public without breach, was known without restriction, is independently developed, or must be disclosed by law (in which case prompt notice and lawful resistance apply, where possible). PHI handling is further governed by the BAA.
+            </p>
+          </div>
+
+          {/* 23. Data retention and deletion */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              23. Data retention and deletion
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              We retain Customer Documents, extracted data, and Generated Output for <strong>[DATA RETENTION PERIOD — TO CONFIRM]</strong>, and backups for <strong>[BACKUP RETENTION PERIOD — TO CONFIRM]</strong>, after which data is deleted per <strong>[DELETION PROCEDURE & TIMELINE — TO CONFIRM]</strong>. Upon termination, Customer may request return or deletion of its data, and PHI will be returned or destroyed as the BAA requires. Our Privacy Policy (Section 15) describes these practices in more detail.
+            </p>
+          </div>
+
+          {/* 24. Fees, invoicing, and payment terms */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              24. Fees, invoicing, and payment terms
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Fees, fee models (including any subscription, per-appeal, or percentage-of-recovery arrangement), measurement rules, invoicing, and payment terms for the Services are set exclusively in an Order Form or other signed agreement with each Customer (<strong>"Fees"</strong>). <strong className="text-[#14110C]">These Terms do not set, cap, or modify Fees, and no marketing page or public statement alters the Fee terms in a signed agreement.</strong> Any percentage-of-recovery ("contingency") arrangement will be documented in a signed agreement that defines the recovered amounts to which the percentage applies, verification and audit mechanics, payment timing, and any state-law conditions. Undisputed invoices are payable within the period stated in the applicable agreement. Disputed amounts must be raised in good faith within 30 days of the invoice date. Late amounts may accrue interest at the lower of 1.5% per month or the maximum rate permitted by law, and we may suspend the Services for continued non-payment after notice.
+            </p>
+          </div>
+
+          {/* 25. Taxes */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              25. Taxes
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Fees are exclusive of taxes. Customer is responsible for sales, use, value-added, goods and services, withholding, and similar taxes arising from its use of the Services (excluding taxes on Veldarion's income). Where Customer is required to withhold tax, it will provide certificates so Veldarion can claim treaty benefits where applicable.
+            </p>
+          </div>
+
+          {/* 26. Refunds, cancellations, and termination */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              26. Refunds, cancellations, and termination
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              <strong className="text-[#14110C]">Term and cancellation.</strong> The initial term and any renewal terms are as stated in the applicable Order Form; if none, either party may cancel with 30 days' written notice. <strong className="text-[#14110C]">Termination for cause.</strong> Either party may terminate immediately on written notice if the other materially breaches these Terms (or the BAA/DPA) and fails to cure within 15 days of notice, or if the other becomes insolvent or subject to bankruptcy or analogous proceedings. We may terminate immediately for breach of Sections 9, 11, or 13. <strong className="text-[#14110C]">Effect.</strong> On termination or expiry: (a) Customer's access ends except as needed to retrieve data during a transition period of up to 30 days (longer if required by the BAA); (b) each party returns or destroys the other's Confidential Information as required (PHI per the BAA); (c) Customer remains liable for Fees accrued and for contingent Fees on amounts recovered through submissions enabled by the Services prior to termination; and (d) sections that by their nature survive (including Sections 8–10, 14–16, 19–22, 28–34, and 37–42) survive.
+            </p>
+          </div>
+
+          {/* 27. Suspension of accounts */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              27. Suspension of accounts
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              We may suspend Customer's access, in whole or in part, with notice where practicable, if: (a) we reasonably believe the Services are being used in violation of these Terms, the BAA/DPA, or law, or in a manner that threatens the security, integrity, or availability of the Platform or PHI; (b) Customer fails to pay undisputed Fees after notice; (c) a Subprocessor or legal change materially impairs the Services; or (d) required by legal process. We will lift suspension promptly when the cause is resolved, and nothing in this Section limits Veldarion's security or legal obligations under the BAA.
+            </p>
+          </div>
+
+          {/* 28. Warranties and disclaimers */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              28. Warranties and disclaimers
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Veldarion warrants that it will provide the Services in a professional and workmanlike manner consistent with these Terms and any executed BAA/DPA. <strong className="text-[#14110C]">Except as expressly stated in these Terms or in an executed agreement, the Services and all Generated Output are provided "as is" and "as available," without warranties of any kind, express or implied, including merchantability, fitness for a particular purpose, accuracy, non-infringement, or that appeal efforts will succeed.</strong> The Disclaimer (incorporated by reference) further describes the risks of AI-generated output. Nothing in these Terms disclaims obligations that cannot lawfully be disclaimed, including Veldarion's obligations under an executed BAA or DPA.
+            </p>
+          </div>
+
+          {/* 29. Limitation of liability */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              29. Limitation of liability
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-4">
+              <strong className="text-[#14110C]">Consequential damages waiver.</strong> To the maximum extent permitted by law, neither party is liable for indirect, incidental, special, consequential, exemplary, or punitive damages, or for lost profits, lost revenue, or lost data, arising out of or relating to the Services, even if advised of the possibility.
+            </p>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-4">
+              <strong className="text-[#14110C]">Liability cap.</strong> Each party's total aggregate liability arising out of or relating to the Services is limited to the greater of (a) the Fees paid or payable by Customer to Veldarion in the 12 months preceding the first event giving rise to liability, or (b) <strong>[USD 10,000 — CONFIRM BEFORE PUBLICATION]</strong>.
+            </p>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-4">
+              <strong className="text-[#14110C]">Exceptions.</strong> The cap and waiver do not apply to: (a) a party's fraud, willful misconduct, or gross negligence; (b) Customer's obligation to pay Fees; (c) either party's breach of Section 22 (Confidentiality), to the extent permitted by law; (d) Veldarion's breach of its privacy, security, or data-protection obligations under an executed BAA or DPA (including breach-notification obligations), to the extent such liability cannot lawfully be capped; (e) either party's indemnification obligations under Section 30; or (f) any liability that cannot be limited by applicable law. The parties acknowledge that these allocations of risk are reflected in the Fees and are an essential basis of the bargain. <em>(Drafting note for counsel: subsection (d) reflects a market compromise — fully carving data-breach liability out of the cap, or fully capping it, are both common; confirm against insurance limits and customer negotiations.)</em>
+            </p>
+          </div>
+
+          {/* 30. Indemnification */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              30. Indemnification
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-4">
+              <strong className="text-[#14110C]">By Customer.</strong> Customer will defend and indemnify Veldarion against third-party claims, and resulting damages and reasonable costs, arising from: (a) Customer Documents or the data within them, including any claim that Customer lacked authority to provide them; (b) Customer's or its Authorized Users' use of the Services in violation of these Terms or applicable law, including the submission of false or misleading content; or (c) Customer's submissions to payers and its relationships with patients.
+            </p>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-4">
+              <strong className="text-[#14110C]">By Veldarion.</strong> Veldarion will defend and indemnify Customer against third-party claims that the Platform (as provided by Veldarion and used as authorized) infringes a third party's intellectual property rights, and will pay damages finally awarded or settlements approved by Veldarion; if the Platform becomes, or in Veldarion's judgment is likely to become, the subject of such a claim, Veldarion may procure the right to continue use, modify or replace the Platform, or terminate the affected Services and refund prepaid, unused Fees on a pro-rata basis. Veldarion has no obligation for claims arising from Customer Documents, unauthorized modifications or combinations, or use in violation of these Terms.
+            </p>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              <strong className="text-[#14110C]">Procedure.</strong> The indemnified party must give prompt notice, reasonable cooperation, and control of the defense and settlement to the indemnifying party (no settlement imposing non-monetary obligations on the indemnified party without its consent).
+            </p>
+          </div>
+
+          {/* 31. Data security and incident response */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              31. Data security and incident response
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Veldarion maintains safeguards consistent with the HIPAA Security Rule where PHI is processed, as described in the BAA and Privacy Policy. Veldarion will notify Customer of any security incident affecting Customer's PHI without unreasonable delay and no later than <strong>[BREACH NOTIFICATION TIMELINE — TO CONFIRM]</strong> after confirming a reportable breach, in accordance with 45 CFR 164.410 and the BAA, and will cooperate with Customer's investigation and its notification obligations. Customer must notify Veldarion promptly of any suspected misuse of credentials or incidents affecting its side of the interface.
+            </p>
+          </div>
+
+          {/* 32. Regulatory compliance */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              32. Regulatory compliance
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Veldarion will comply with laws applicable to it as a technology vendor, including HIPAA with respect to PHI (under a BAA), India's data protection framework, and consumer-protection law applicable to its marketing. Customer remains responsible for: (a) its compliance with payer contracts and healthcare program requirements (including Medicare and Medicaid conditions of participation and billing rules); (b) deciding whether and how to appeal, including the appointment of representatives where desired (e.g., Form CMS-1696 for Medicare appeals); (c) its state licensure and professional obligations; and (d) the accuracy and lawfulness of everything it submits to any payer. Neither party will take action that would cause the other to violate healthcare program requirements.
+            </p>
+          </div>
+
+          {/* 33. Governing law and jurisdiction */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              33. Governing law and jurisdiction
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-4">
+              <strong className="text-[#14110C]">[GOVERNING LAW / DISPUTE FORUM — LEGAL REVIEW REQUIRED. Select exactly one option before publication.]</strong>
+            </p>
+            <ul className="space-y-3 text-[15px] leading-relaxed text-[#2A2620] mb-6 pl-6 list-disc list-inside">
+              <li><strong>Option A (recommended in Part A §A.12.8):</strong> These Terms are governed by the laws of India, without regard to conflict-of-laws rules, and disputes are resolved by arbitration seated in New Delhi, India (Section 34).</li>
+              <li><strong>Option B:</strong> These Terms are governed by the laws of the State of Delaware, United States, without regard to conflict-of-laws rules, and disputes are resolved by arbitration seated in Singapore (Section 34).</li>
+            </ul>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              The United Nations Convention on Contracts for the International Sale of Goods does not apply.
+            </p>
+          </div>
+
+          {/* 34. Dispute resolution */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              34. Dispute resolution
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-4">
+              <strong className="text-[#14110C]">Escalation.</strong> The parties will first attempt in good faith to resolve any dispute through negotiation between senior representatives within 30 days of written notice.
+            </p>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-4">
+              <strong className="text-[#14110C]">Arbitration.</strong> Disputes not resolved by negotiation are finally resolved by binding arbitration before a single arbitrator, seated as selected under Section 33, conducted in English, under (Option A) the Arbitration and Conciliation Act, 1996 (India) or (Option B) the rules of the Singapore International Arbitration Centre. Judgment on the award may be entered in any court of competent jurisdiction; the award is enforceable under the New York Convention in both India and the United States.
+            </p>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-4">
+              <strong className="text-[#14110C]">Interim relief.</strong> Nothing prevents either party from seeking urgent interim or injunctive relief from a competent court to protect Confidential Information, PHI, intellectual property, or the Platform.
+            </p>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-4">
+              <strong className="text-[#14110C]">Class waiver.</strong> To the extent permitted by law, the parties waive any right to bring or participate in class, collective, or representative proceedings, and arbitration will be on an individual basis.
+            </p>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              <strong className="text-[#14110C]">Continued use.</strong> Pending resolution, the Customer may continue using the Services, and Veldarion will continue to perform its BAA/DPA obligations.
+            </p>
+          </div>
+
+          {/* 35. Changes to these Terms */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              35. Changes to these Terms
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              We may update these Terms from time to time. We will post the current version with its effective date and notify Customers of material changes by email or in-application notice at least 30 days before they take effect (or as required by applicable law or an executed agreement). If a Customer continues to use the Services after the effective date of a material change, the updated Terms apply. Changes that materially reduce Customer data-protection or BAA-related commitments will not apply to PHI processing without a signed amendment to the BAA.
+            </p>
+          </div>
+
+          {/* 36. Severability */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              36. Severability
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              If any provision of these Terms is held invalid, illegal, or unenforceable, it will be modified to the minimum extent necessary or, if modification is not possible, severed, and the remaining provisions will continue in force.
+            </p>
+          </div>
+
+          {/* 37. Entire agreement; order of precedence */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              37. Entire agreement; order of precedence
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620] mb-4">
+              These Terms, together with the Privacy Policy and Disclaimer, form the entire agreement between the parties regarding the Services and supersede prior proposals and understandings on that subject. Where the parties have executed other agreements, the following order of precedence applies to the extent of any conflict: (1) the BAA (for PHI); (2) the DPA (for personal data); (3) the MSA (if any); (4) the applicable Order Form (including Fees); and (5) these Terms.
+            </p>
+          </div>
+
+          {/* 38. Contact information */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              38. Contact information
+            </h2>
+            <p className="font-mono text-[14px] font-bold text-[#14110C] mb-2"><strong>Ram Bharosa Saxena</strong>, trading as Veldarion</p>
+            <p className="font-mono text-[14px] font-bold text-[#14110C] mb-2"><strong>[REGISTERED BUSINESS ADDRESS — TO CONFIRM]</strong></p>
+            <p className="font-mono text-[14px] font-bold text-[#14110C] mb-2">Legal contact: <strong>shivansh@veldarion.com</strong></p>
+            <p className="font-mono text-[14px] font-bold text-[#14110C]">Privacy contact: <strong>shivansh@veldarion.com</strong></p>
+          </div>
+
+          {/* 39. Assignment */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              39. Assignment
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Customer may not assign these Terms or its rights without Veldarion's prior written consent, except to a successor in a merger or sale of substantially all assets (with notice). Veldarion may assign these Terms in connection with a merger, acquisition, or sale of assets, or to an affiliate, with notice to Customer, provided the assignee assumes Veldarion's data-protection and BAA obligations.
+            </p>
+          </div>
+
+          {/* 40. Force majeure */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              40. Force majeure
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Neither party is liable for delays or failures in performance caused by events beyond its reasonable control, including natural disasters, war, civil unrest, labor disputes, utility or internet failures, or governmental action; provided that this Section does not excuse either party's payment obligations, Veldarion's security and breach-notification obligations under the BAA, or either party's duty to use reasonable efforts to mitigate and resume performance.
+            </p>
+          </div>
+
+          {/* 41. Notices */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              41. Notices
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              Notices to Veldarion must be sent to <strong>shivansh@veldarion.com</strong> (or the address in Section 38) and are effective on receipt. We give notice to Customer by email to the Customer's administrative or account email address, or in-application messaging, and it is effective when sent (or, for material changes to these Terms, as provided in Section 35).
+            </p>
+          </div>
+
+          {/* 42. General provisions */}
+          <div className="mt-12">
+            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#14110C] mb-4">
+              42. General provisions
+            </h2>
+            <p className="text-[15px] leading-relaxed text-[#2A2620]">
+              These Terms do not create any agency, partnership, or joint venture. No waiver of any right is effective unless in writing, and no failure to enforce is a waiver. If any translation of these Terms conflicts with the English version, the English version controls. The parties are independent contractors, and each party complies with its own tax, employment, and regulatory obligations.
+            </p>
+          </div>
+
+          <Rule className="mt-16" />
+        </BlogLayout>
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+function ArrowRight() {
+  return (
+    <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+    </svg>
+  );
+}
