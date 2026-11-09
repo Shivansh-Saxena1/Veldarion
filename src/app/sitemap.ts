@@ -3,6 +3,8 @@ import { getPublishedArticles } from "@/lib/content";
 
 const BASE_URL = "https://veldarion.com";
 
+export const dynamic = "force-static";
+
 const STATIC_ROUTES = [
   "",
   "/about",
