@@ -263,48 +263,48 @@ export default function PrivacyPage() {
               The categories of subprocessors we use are listed below. The current, complete list with entities and processing locations is maintained at <strong>[SUBPROCESSOR LIST URL — TO CONFIRM]</strong> and in Exhibit 3 of our BAA. Before we engage any new subprocessor that will have access to PHI, we will (a) confirm it is bound by HIPAA-compliant obligations through a BAA or equivalent, and (b) notify affected customers and allow them to object as provided in their agreements.
             </p>
             <div className="overflow-x-auto mt-6">
-              <table className="w-full border-collapse text-[14px] leading-relaxed">
-                <thead>
-                  <tr className="border-b-2 border-[#14110C]">
-                    <th className="text-left pb-2 font-mono text-[11px] uppercase tracking-[0.22em] text-[#5C5447]">Category</th>
-                    <th className="text-left pb-2 font-mono text-[11px] uppercase tracking-[0.22em] text-[#5C5447]">Function</th>
-                    <th className="text-left pb-2 font-mono text-[11px] uppercase tracking-[0.22em] text-[#5C5447]">Current provider</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#14110C]/15">
-                  <tr>
-                    <td className="py-3 font-medium text-[#14110C]">Hosting / application infrastructure</td>
-                    <td className="py-3 text-[#2A2620]">Operating the website and application</td>
-                    <td className="py-3 text-[#2A2620]"><strong>[HOSTING PROVIDER & REGION(S) — TO CONFIRM]</strong></td>
-                  </tr>
-                  <tr>
-                    <td className="py-3 font-medium text-[#14110C]">Data storage</td>
-                    <td className="py-3 text-[#2A2620]">Database and document storage</td>
-                    <td className="py-3 text-[#2A2620]"><strong>[DATABASE / STORAGE PROVIDER & REGION(S) — TO CONFIRM]</strong></td>
-                  </tr>
-                  <tr>
-                    <td className="py-3 font-medium text-[#14110C]">AI processing</td>
-                    <td className="py-3 text-[#2A2620]">Document analysis and generation</td>
-                    <td className="py-3 text-[#2A2620]"><strong>[AI PROCESSING PROVIDER & TIER — TO CONFIRM]</strong></td>
-                  </tr>
-                  <tr>
-                    <td className="py-3 font-medium text-[#14110C]">Transactional email</td>
-                    <td className="py-3 text-[#2A2620]">Service notifications</td>
-                    <td className="py-3 text-[#2A2620]"><strong>[EMAIL SERVICE PROVIDER — TO CONFIRM]</strong></td>
-                  </tr>
-                  <tr>
-                    <td className="py-3 font-medium text-[#14110C]">Website analytics</td>
-                    <td className="py-3 text-[#2A2620]">Usage measurement</td>
-                    <td className="py-3 text-[#2A2620]"><strong>[ANALYTICS / COOKIE PROVIDER(S) — TO CONFIRM, or "none"]</strong></td>
-                  </tr>
-                  <tr>
-                    <td className="py-3 font-medium text-[#14110C]">Payments</td>
-                    <td className="py-3 text-[#2A2620]">Invoicing and fee collection</td>
-                    <td className="py-3 text-[#2A2620]"><strong>[PAYMENT PROCESSOR — TO CONFIRM]</strong></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                          <table className="w-full border-collapse text-[14px] leading-relaxed">
+                            <thead>
+                              <tr className="border-b-2 border-[#14110C]">
+                                <th className="text-left pb-2 font-mono text-[11px] uppercase tracking-[0.22em] text-[#5C5447]">Category</th>
+                                <th className="text-left pb-2 font-mono text-[11px] uppercase tracking-[0.22em] text-[#5C5447]">Function</th>
+                                <th className="text-left pb-2 font-mono text-[11px] uppercase tracking-[0.22em] text-[#5C5447]">Current provider</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-[#14110C]/15">
+                              <tr>
+                                <td className="py-3 font-medium text-[#14110C]">Hosting / application infrastructure</td>
+                                <td className="py-3 text-[#2A2620]">Operating the website and application</td>
+                                <td className="py-3 text-[#2A2620]"><strong>GitHub (GitHub Pages)</strong></td>
+                              </tr>
+                              <tr>
+                                <td className="py-3 font-medium text-[#14110C]">Data storage</td>
+                                <td className="py-3 text-[#2A2620]">Database and document storage</td>
+                                <td className="py-3 text-[#2A2620]"><strong>GitHub</strong></td>
+                              </tr>
+                              <tr>
+                                <td className="py-3 font-medium text-[#14110C]">AI processing</td>
+                                <td className="py-3 text-[#2A2620]">Document analysis and generation</td>
+                                <td className="py-3 text-[#2A2620]"><strong>Confidential</strong></td>
+                              </tr>
+                              <tr>
+                                <td className="py-3 font-medium text-[#14110C]">Transactional email</td>
+                                <td className="py-3 text-[#2A2620]">Service notifications</td>
+                                <td className="py-3 text-[#2A2620]"><strong>Titan Email</strong></td>
+                              </tr>
+                              <tr>
+                                <td className="py-3 font-medium text-[#14110C]">Website analytics</td>
+                                <td className="py-3 text-[#2A2620]">Usage measurement</td>
+                                <td className="py-3 text-[#2A2620]"><strong>Google Analytics (GA4)</strong></td>
+                              </tr>
+                              <tr>
+                                <td className="py-3 font-medium text-[#14110C]">Payments</td>
+                                <td className="py-3 text-[#2A2620]">Invoicing and fee collection</td>
+                                <td className="py-3 text-[#2A2620]"><strong>PayPal / Stripe / Payoneer</strong></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
           </div>
 
           {/* 14. International transfers */}
