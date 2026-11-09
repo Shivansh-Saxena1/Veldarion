@@ -192,32 +192,11 @@ export default function DisclaimerPage() {
               To the extent permitted by law, the services are otherwise provided "as is" and "as available" without warranties of any kind, as further stated in our Terms of Service.
             </p>
             <p className="text-[15px] leading-relaxed text-[#2A2620]">
-              <strong>Questions about this Disclaimer:</strong> <strong>shivansh@veldarion.com</strong>, <strong>[REGISTERED BUSINESS ADDRESS — TO CONFIRM]</strong>.
-            </p>
-          </div>
+                          <strong>Questions about this Disclaimer:</strong> <strong>shivansh@veldarion.com</strong>, <strong>[REGISTERED BUSINESS ADDRESS — TO CONFIRM]</strong>.
+                        </p>
+                      </div>
 
-          {/* Short-form disclaimer for in-application display */}
-          <div className="mt-12 rounded-sm border-2 border-[#14110C] bg-[#14110C] p-10 sm:p-14 text-[#F4EFE4]">
-            <h2 className="font-serif text-[26px] font-bold tracking-tight text-[#F4EFE4] mb-4">
-              Short-form disclaimer for in-application display
-            </h2>
-            <p className="text-[#DDD3BD]/90 leading-relaxed mb-6">
-              The following notice is approved for display inside the application alongside generated appeal reports and analyses. It must be displayed without material modification:
-            </p>
-            <div className="rounded-sm border-2 border-[#C5F23D] bg-[#C5F23D]/20 p-8 text-[#14110C]">
-              <p className="font-bold text-[14px] mb-4">
-                AI-generated draft — review required.
-              </p>
-              <p className="text-[14px] leading-relaxed mb-4">
-                This output was generated with artificial intelligence and may contain errors, omissions, outdated policy references, or unsupported conclusions. It is not legal, medical, billing, or coverage advice. Veldarion does not guarantee any appeal outcome and has not approved or submitted this document.
-              </p>
-              <p className="text-[14px] leading-relaxed">
-                Before any use or submission, qualified clinic personnel must verify all facts, codes, citations, and policy references against source records and current payer requirements, and confirm all applicable deadlines. The decision to submit, and the content submitted, are the clinic's responsibility.
-              </p>
-            </div>
-          </div>
-
-          <Rule className="mt-16" />
+                      <Rule className="mt-16" />
         </BlogLayout>
       </main>
       <Footer />
